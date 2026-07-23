@@ -57,7 +57,7 @@ a {
 .project-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   position: relative;
   z-index: 5;
   width: 100%;
@@ -73,17 +73,16 @@ a {
 }
 
 .project-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: start;
-  justify-content: flex-start;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
 }
 
 .project-name-col {
   position: relative;
   height: 40px;
-  min-width: max-content;
 }
 
 .project-name {

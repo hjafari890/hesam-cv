@@ -375,13 +375,14 @@ function App() {
               }}
               transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
               style={{
-                borderRadius: '14px',
-                padding: '10px 20px',
-                marginLeft: '-20px',
+                borderRadius: '12px',
+                padding: '8px 16px',
+                marginLeft: '-16px',
                 border: 'none',
                 position: 'relative',
                 cursor: 'default',
-                width: 'max-content'
+                width: '100%',
+                maxWidth: '400px'
               }}
             >
               <div className="project-grid">
