@@ -74,6 +74,17 @@ function ProjectPreview({ project }) {
           color: '#ffffff',
           margin: 0
         }}>
+          <span style={{ 
+            display: 'block', 
+            fontSize: '0.9rem', 
+            fontWeight: 500, 
+            color: 'rgba(255, 255, 255, 0.55)', 
+            marginBottom: '6px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em'
+          }}>
+            {project.organization}
+          </span>
           {project.title}
         </h3>
         <p style={{
@@ -88,6 +99,26 @@ function ProjectPreview({ project }) {
         }}>
           {project.description}
         </p>
+
+        {/* Frosted Glass Pills (Tech Stack) */}
+        {project.technologies && project.technologies.length > 0 && (
+          <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexWrap: 'wrap' }}>
+            {project.technologies.map(tech => (
+              <span key={tech} style={{ 
+                background: 'rgba(255, 255, 255, 0.1)', 
+                border: '1px solid rgba(255, 255, 255, 0.15)', 
+                backdropFilter: 'blur(12px)', 
+                padding: '4px 12px', 
+                borderRadius: '20px', 
+                fontSize: '0.8rem', 
+                fontWeight: 500,
+                color: 'rgba(255, 255, 255, 0.9)' 
+              }}>
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -388,7 +419,6 @@ function App() {
               <div className="project-grid">
                 <div className="project-name-col">
                   <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
-                  <span className="project-org" style={{ color: isPcbMode ? 'rgba(0,255,170,0.7)' : undefined }}>{project.organization}</span>
                 </div>
                 <span className="project-year" style={{ color: isPcbMode ? '#00ffaa' : undefined }}>{project.year}</span>
               </div>

@@ -99,30 +99,6 @@ a {
   white-space: nowrap;
 }
 
-.project-org {
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--muted);
-  position: absolute;
-  bottom: 1px;
-  left: 0;
-  opacity: 0;
-  transition: opacity 250ms ease;
-  white-space: nowrap;
-}
-
-.project-row:hover .project-name,
-.project-row:focus-visible .project-name,
-.project-row.active-row .project-name {
-  transform: translateY(-90%);
-}
-
-.project-row:hover .project-org,
-.project-row:focus-visible .project-org,
-.project-row.active-row .project-org {
-  opacity: 0.6;
-}
-
 .project-year {
   font-size: 14px;
   color: var(--muted);

@@ -53,21 +53,24 @@ export const cvData = {
       year: "2026",
       organization: "TinyML & Distillation",
       description: "Implementing Tiny ML models and JEPA+distillation methods on Single-Board Computers (SBCs) for real-time PV panel defect detection at the edge.",
-      videoSrc: "edge-classifier.mp4"
+      videoSrc: "edge-classifier.mp4",
+      technologies: ["PyTorch", "TinyML", "Raspberry Pi"]
     },
     {
       title: "Medical Sensor Shield",
       year: "2026",
       organization: "Hardware & PCB Design",
       description: "Designed and prototyped a multi-sensor actuator shield for the TI CC2650 SoC, integrating analog front-ends, I\u00B2C sensor buses, and GPIO-driven actuators onto a compact 4-layer PCB. The testbed enables rapid iteration of body-area network experiments — from impedance sensing to haptic feedback — with full KiCad schematics and board files.",
-      videoSrc: "medcal-shield.mp4"
+      videoSrc: "medcal-shield.mp4",
+      technologies: ["KiCad", "I2C", "C++"]
     },
     {
       title: "Powertrain Electronics",
       year: "2026",
       organization: "Hardware & Firmware",
       description: "Reverse-engineered a VESC 6-based motor controller to understand its gate-driver topology and current-sensing architecture. Co-developed custom firmware modules for torque-vectoring logic and thermal management on an STM32 target, supporting a Formula Student electric powertrain with real-time CAN telemetry.",
-      videoSrc: "powertrain.mp4"
+      videoSrc: "powertrain.mp4",
+      technologies: ["STM32", "CAN bus", "C"]
     },
     {
       title: "Edge AI Step Counter & Fall Detector",
