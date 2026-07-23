@@ -381,8 +381,7 @@ function App() {
                 border: 'none',
                 position: 'relative',
                 cursor: 'default',
-                width: '100%',
-                maxWidth: '440px'
+                width: 'max-content'
               }}
             >
               <div className="project-grid">

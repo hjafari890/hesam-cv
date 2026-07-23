@@ -49,14 +49,14 @@ export const cvData = {
   ],
   projects: [
     {
-      title: "Edge AI Classifier (Upcoming)",
+      title: "Edge AI Classifier",
       year: "2026",
       organization: "TinyML & Distillation",
       description: "Implementing Tiny ML models and JEPA+distillation methods on Single-Board Computers (SBCs) for real-time PV panel defect detection at the edge.",
       videoSrc: "edge-classifier.mp4"
     },
     {
-      title: "Medical Sensor Shield (Upcoming)",
+      title: "Medical Sensor Shield",
       year: "2026",
       organization: "Hardware & PCB Design",
       description: "Designed and prototyped a multi-sensor actuator shield for the TI CC2650 SoC, integrating analog front-ends, I\u00B2C sensor buses, and GPIO-driven actuators onto a compact 4-layer PCB. The testbed enables rapid iteration of body-area network experiments — from impedance sensing to haptic feedback — with full KiCad schematics and board files.",

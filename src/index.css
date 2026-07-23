@@ -73,16 +73,17 @@ a {
 }
 
 .project-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: start;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 14px;
   width: 100%;
 }
 
 .project-name-col {
   position: relative;
   height: 40px;
+  min-width: max-content;
 }
 
 .project-name {
