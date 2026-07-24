@@ -97,7 +97,7 @@ export const cvData = {
       technologies: ["ESP32", "FFT/DSP", "MATLAB", "C"]
     },
     {
-      title: "Functional SDR Real-Time LTE Jammer Detector",
+      title: "SDR Jammer Detector",
       year: "2026",
       organization: "RF SECURITY & MACHINE LEARNING",
       description: "Built a functional, SDR monitoring station to detect LTE interference. Processed statistical features (Kurtosis, Entropy) from raw IQ data and integrated Random Forest ML models to classify jamming, displaying live risk on a GPU-accelerated PyQt6 dashboard.",
