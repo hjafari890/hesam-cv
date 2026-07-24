@@ -88,14 +88,10 @@ function ProjectPreview({ project }) {
           {project.title}
         </h3>
         <p style={{
-          fontSize: '1.05rem',
-          lineHeight: 1.5,
-          color: 'rgba(255, 255, 255, 0.8)',
-          margin: 0,
-          display: '-webkit-box',
-          WebkitLineClamp: 3,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden'
+          fontSize: '0.98rem',
+          lineHeight: 1.45,
+          color: 'rgba(255, 255, 255, 0.85)',
+          margin: 0
         }}>
           {project.description}
         </p>
