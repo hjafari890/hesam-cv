@@ -62,7 +62,7 @@ export const cvData = {
       organization: "HARDWARE & MIXED-SIGNAL PCB DESIGN",
       description: "Designed a 4-layer mixed-signal PCB testbed for the Texas Instrument CC2650. Integrated high-precision 24-bit AFE (ECG/respiration) and PPG sensor hub. Implementing isolated domains, bidirectional level translation, trace topology, and BOM optimization for fabrication.",
       videoSrc: "medcal-shield.mp4",
-      technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "MCU", "Analog Front-End"]
+      technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "Analog Front-End"]
     },
     {
       title: "High-Power VESC Motor Controller",
@@ -78,7 +78,7 @@ export const cvData = {
       organization: "WEARABLE IoT & EDGE AI",
       description: "Architected and deployed a hybrid edge-cloud wearable system using an RP2040-based Edge AI node for activity recognition and fall detection. Deployed a decision tree model in MicroPython, achieving +90% accuracy, 13ms local AI processing latency, and robust Wi-Fi MQTT telemetry via Node-RED.",
       videoSrc: "edge-ai.mp4",
-      technologies: ["Pi Pico W (RP2040)", "TinyML", "MicroPython", "Decision Trees", "MQTT", "Node-RED", "Sensors"]
+      technologies: ["Pi Pico W (RP2040)", "TinyML", "MicroPython", "Decision Trees", "MQTT", "Node-RED"]
     },
     {
       title: "IoT Hydrogen Leak Prediction",
