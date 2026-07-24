@@ -49,84 +49,92 @@ export const cvData = {
   ],
   projects: [
     {
-      title: "Edge AI Classifier",
+      title: "Edge AI Defect Classifier",
       year: "2026",
-      organization: "TinyML & Distillation",
-      description: "Implementing Tiny ML models and JEPA+distillation methods on Single-Board Computers (SBCs) for real-time PV panel defect detection at the edge.",
+      organization: "EDGE AI & COMPUTER VISION",
+      description: "Designed a compressed, self-supervised CNN-ViT fused architectures using JEPA and SEED knowledge distillation for real-time solar panel defect classification. Optimized for single-board computers to deliver low latency, local data privacy and edge execution.",
       videoSrc: "edge-classifier.mp4",
-      technologies: ["PyTorch", "TinyML", "Raspberry Pi"]
+      technologies: ["SSL", "JEPA", "TinyML", "Knowledge Distillation", "Vision Transformers (ViT)"]
     },
     {
-      title: "Medical Sensor Shield",
+      title: "TI CC2650 Medical Sensor Shield",
       year: "2026",
-      organization: "Hardware & PCB Design",
-      description: "Designed and prototyped a multi-sensor actuator shield for the TI CC2650 SoC, integrating analog front-ends, I\u00B2C sensor buses, and GPIO-driven actuators onto a compact 4-layer PCB. The testbed enables rapid iteration of body-area network experiments — from impedance sensing to haptic feedback — with full KiCad schematics and board files.",
+      organization: "HARDWARE & MIXED-SIGNAL PCB DESIGN",
+      description: "Designed a 4-layer mixed-signal PCB testbed for the Texas Instrument CC2650. Integrated high-precision 24-bit AFE (ECG/respiration) and PPG sensor hub. Implementing isolated domains, bidirectional level translation, trace topology, and BOM optimization for fabrication.",
       videoSrc: "medcal-shield.mp4",
-      technologies: ["KiCad", "I2C", "C++"]
+      technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "MCU", "Analog Front-End"]
     },
     {
-      title: "Powertrain Electronics",
+      title: "High-Power VESC Motor Controller",
       year: "2026",
-      organization: "Hardware & Firmware",
-      description: "Reverse-engineered a VESC 6-based motor controller to understand its gate-driver topology and current-sensing architecture. Co-developed custom firmware modules for torque-vectoring logic and thermal management on an STM32 target, supporting a Formula Student electric powertrain with real-time CAN telemetry.",
+      organization: "POWER ELECTRONICS & EMBEDDED SYSTEMS",
+      description: "Co-developed a reverse-engineered, high-power (75V/300A) 3-phase VESC motor controller for a Formula Student Hybrid race car. 18-MOSFET inverter stage with inline current sensing and customized ChibiOS firmware executing Field-Oriented Control (FOC) over CAN bus.",
       videoSrc: "powertrain.mp4",
-      technologies: ["STM32", "CAN bus", "C"]
+      technologies: ["STM32", "RTOS", "CAN Bus", "Embedded C", "Powertrain Electronics", "Motor Control"]
     },
     {
-      title: "Edge AI Step Counter & Fall Detector",
+      title: "Pico AI Step Counter & Fall Detector",
       year: "2026",
-      organization: "TinyML & Wearables",
-      description: "Built low-power wearable sensor nodes on the Raspberry Pi Pico W, running quantized TinyML models for real-time step counting and fall detection. The pipeline spans raw IMU acquisition, feature windowing, on-device inference at under 50 ms latency, and BLE alert dispatch — all within a 30 mA power budget.",
-      videoSrc: "edge-ai.mp4"
+      organization: "WEARABLE IoT & EDGE AI",
+      description: "Architected and deployed a hybrid edge-cloud wearable system using an RP2040-based Edge AI node for activity recognition and fall detection. Deployed a decision tree model in MicroPython, achieving +90% accuracy, 13ms local AI processing latency, and robust Wi-Fi MQTT telemetry via Node-RED.",
+      videoSrc: "edge-ai.mp4",
+      technologies: ["Pi Pico W (RP2040)", "TinyML", "MicroPython", "Decision Trees", "MQTT", "Node-RED", "Sensors"]
     },
     {
-      title: "Distributed Gas Monitoring",
+      title: "Distributed IoT Hydrogen Leak Prediction",
       year: "2026",
-      organization: "Industrial IoT",
-      description: "Engineered an end-to-end Industrial IoT system for continuous hydrogen leak prediction. Edge nodes perform local ML inference on electrochemical sensor streams, while a Raspberry Pi 5 backend aggregates data via MQTT, runs ensemble models, and serves a real-time dashboard for plant-floor operators.",
-      videoSrc: "gas-monitor.mp4"
+      organization: "INDUSTRIAL IoT & AI",
+      description: "Built a modular, production-grade Industrial IoT safety platform using custom ESP32 sensor nodes. Deployed a predictive XGBoost AI engine on a Raspberry Pi 5 gateway to predict hydrogen leak locations, severity, and risk scores over MQTT to a central dashboard.",
+      videoSrc: "gas-monitor.mp4",
+      technologies: ["ESP32", "Raspberry Pi 5", "XGBoost AI", "MQTT", "Custom PCB", "C / Python"]
     },
     {
-      title: "Wearable Health Monitor",
+      title: "ESP32 Edge-DSP Sleep & Snore Monitor",
       year: "2025",
-      organization: "Embedded Systems",
-      description: "Developed a compact ESP32-based wearable that captures microphone and accelerometer data overnight to classify snoring events using FFT-based spectral features. The device correlates audio patterns with body position, providing a low-cost sleep-quality assessment tool with SD card logging and morning summary reports.",
-      videoSrc: "health-monitor.mp4"
+      organization: "WEARABLE & DSP",
+      description: "Developed an ESP32 wearable health device for snore detection and body orientation tracking. Combined I2S audio sampling, 128-point FFT processing, and IMU telemetry to analyze and visualize the correlation between sleep position and snoring intensity.",
+      videoSrc: "health-monitor.mp4",
+      technologies: ["ESP32", "FFT/DSP", "MATLAB", "C"]
     },
     {
-      title: "Jammer Detector",
+      title: "Functional SDR Real-Time LTE Jammer Detector",
       year: "2026",
-      organization: "SDR & Machine Learning",
-      description: "Built a software-defined radio monitoring station using an RTL-SDR receiver to scan the LTE uplink band in real time. Extracted statistical features — kurtosis, spectral entropy, and peak-to-average ratio — and trained a Random Forest classifier to distinguish intentional jamming from normal interference with over 94% accuracy.",
-      videoSrc: "jammer-detector.mp4"
+      organization: "RF SECURITY & MACHINE LEARNING",
+      description: "Built a functional, SDR monitoring station to detect LTE interference. Processed statistical features (Kurtosis, Entropy) from raw IQ data and integrated Random Forest ML models to classify jamming, displaying live risk on a GPU-accelerated PyQt6 dashboard.",
+      videoSrc: "jammer-detector.mp4",
+      technologies: ["SDR", "Machine Learning", "Python", "Random Forest", "PyQt6", "DSP"]
     },
     {
-      title: "Biomedical Measurement",
+      title: "Hemodynamic Signal Processing",
       year: "2026",
-      organization: "Data Analysis",
-      description: "Collected physiological signals using clinical-grade instruments — including ECG, EMG, and bioimpedance analyzers — and performed systematic analysis in OriginLab. Work covered signal conditioning, artifact rejection, statistical feature extraction, and publication-ready figure generation for laboratory reports.",
-      videoSrc: "biomedical.mp4"
+      organization: "SIGNAL PROCESSING",
+      description: "Functional Near-Infrared Spectroscopy (fNIRS) signal processing to quantify cerebral hemodynamic responses. Implemented kinematic motion-artifact decoupling, time-frequency spectral decomposition, and parametric noise suppression in OriginLab.",
+      videoSrc: "biomedical.mp4",
+      technologies: ["OriginLab", "fNIRS", "Bio-optics", "Corticovascular Analytics", "DSP", "MATLAB"]
     },
     {
-      title: "Electronics Simulation",
+      title: "Thermal Flow Sensor Simulation",
       year: "2025",
-      organization: "Finite Element Analysis",
-      description: "Utilized COMSOL Multiphysics to run finite element simulations evaluating the electromagnetic and thermal performance of biomedical sensor geometries. Performed parameter sweeps across electrode spacing, substrate materials, and excitation frequencies to optimize sensitivity-to-noise trade-offs before physical fabrication.",
-      videoSrc: "simulation.mp4"
+      organization: "MULTIPHYSICS SIMULATION & FEA",
+      description: "Modeled and optimized a calorimetric thermal flow sensor for transformer oil using COMSOL Multiphysics. Coupled Laminar Flow and Heat Transfer physics with Wheatstone bridge signal conditioning to achieve 5.4% response nonlinearity for precision low-flow measurement.",
+      videoSrc: "simulation.mp4",
+      technologies: ["COMSOL Multiphysics", "Finite Element Analysis (FEA)", "Analog Signal Conditioning"]
     },
     {
-      title: "Hybrid Cloud Pipeline",
-      year: "2025",
-      organization: "Cloud & IoT",
-      description: "Architected a containerized Docker/MQTT pipeline for streaming real-time EEG workload data from edge devices to cloud services. Benchmarked Quality-of-Service tiers under varying network conditions to quantify latency, jitter, and packet-loss trade-offs for safety-critical biomedical telemetry applications.",
-      videoSrc: "cloud-pipeline.mp4"
-    },
-    {
-      title: "Network Simulation",
+      title: "Distributed Network Simulation",
       year: "2026",
-      organization: "Cloud/Edge Architectures",
-      description: "Simulated hybrid cloud/edge deployment topologies to study the impact of workload placement on end-to-end latency in distributed IoT networks. Modeled realistic traffic patterns, evaluated fog-node caching strategies, and produced comparative latency-vs-cost analyses for different architectural configurations.",
-      videoSrc: "network-sim.mp4"
+      organization: "DISTRIBUTED COMPUTING & NETWORKING",
+      description: "Simulated multi-tier distributed network architectures (Cloud, Edge, Mist) using CloudSim and PureEdgeSim. Evaluated VM scheduling policies, MIPS allocation, and WAN/LAN bottlenecks to optimize task latency, energy efficiency, and throughput in hybrid cloud-edge topologies.",
+      videoSrc: "network-sim.mp4",
+      technologies: ["CloudSim", "PureEdgeSim", "Java", "Distributed Systems", "Network Optimization"]
+    },
+    {
+      title: "Hybrid Cloud Real-Time EEG Pipeline",
+      year: "2025",
+      organization: "HYBRID CLOUD & MICROSERVICES",
+      description: "Architected and containerized a microservices pipeline using Docker Compose and MQTT to process EEG telemetry streams. Implemented secure SSL/TLS communication between local edge processors and cloud infrastructure (CSC Rahti/OpenShift) for continuous workload monitoring.",
+      videoSrc: "cloud-pipeline.mp4",
+      technologies: ["Docker", "MQTT", "Python", "SSL/TLS Security", "Microservices"]
     }
   ],
   activities: [
