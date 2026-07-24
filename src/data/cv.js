@@ -81,7 +81,7 @@ export const cvData = {
       technologies: ["Pi Pico W (RP2040)", "TinyML", "MicroPython", "Decision Trees", "MQTT", "Node-RED", "Sensors"]
     },
     {
-      title: "Distributed IoT Hydrogen Leak Prediction",
+      title: "IoT Hydrogen Leak Prediction",
       year: "2026",
       organization: "INDUSTRIAL IoT & AI",
       description: "Built a modular, production-grade Industrial IoT safety platform using custom ESP32 sensor nodes. Deployed a predictive XGBoost AI engine on a Raspberry Pi 5 gateway to predict hydrogen leak locations, severity, and risk scores over MQTT to a central dashboard.",
@@ -89,7 +89,7 @@ export const cvData = {
       technologies: ["ESP32", "Raspberry Pi 5", "XGBoost AI", "MQTT", "Custom PCB", "C / Python"]
     },
     {
-      title: "ESP32 Edge-DSP Sleep & Snore Monitor",
+      title: "Sleep Position & Snore Monitoring",
       year: "2025",
       organization: "WEARABLE & DSP",
       description: "Developed an ESP32 wearable health device for snore detection and body orientation tracking. Combined I2S audio sampling, 128-point FFT processing, and IMU telemetry to analyze and visualize the correlation between sleep position and snoring intensity.",
@@ -129,7 +129,7 @@ export const cvData = {
       technologies: ["CloudSim", "PureEdgeSim", "Java", "Distributed Systems", "Network Optimization"]
     },
     {
-      title: "Hybrid Cloud Real-Time EEG Pipeline",
+      title: "Hybrid Cloud EEG Pipeline",
       year: "2025",
       organization: "HYBRID CLOUD & MICROSERVICES",
       description: "Architected and containerized a microservices pipeline using Docker Compose and MQTT to process EEG telemetry streams. Implemented secure SSL/TLS communication between local edge processors and cloud infrastructure (CSC Rahti/OpenShift) for continuous workload monitoring.",
