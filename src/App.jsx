@@ -22,28 +22,71 @@ function enrichProjects(projects) {
 }
 
 function ProjectPreview({ project }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-play effect
+  useEffect(() => {
+    if (!isAutoPlaying || !project.images || project.images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, project.images]);
+
+  // Handle scroll scrubbing
+  const handleWheel = (e) => {
+    e.stopPropagation();
+    if (!project.images || project.images.length <= 1) return;
+    setIsAutoPlaying(false);
+    if (Math.abs(e.deltaY) > 10) {
+      if (e.deltaY > 0) {
+        setCurrentImageIndex((prev) => Math.min(prev + 1, project.images.length - 1));
+      } else {
+        setCurrentImageIndex((prev) => Math.max(prev - 1, 0));
+      }
+    }
+  };
+
+  const hasImages = project.images && project.images.length > 0;
+
   return (
-    <div className={`media-frame ${project.accent}`} style={{
-      width: '100%',
-      height: '100%',
-      borderRadius: '32px',
-      overflow: 'hidden',
-      position: 'relative',
-      boxShadow: '0 40px 100px rgba(0,0,0,0.25)',
-      border: '1px solid rgba(255, 255, 255, 0.4)'
-    }}>
-      <video
-        src={`/videos/${project.videoSrc}`}
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "/videos/sample.mp4";
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="media-video"
-      />
+    <div 
+      className={`media-frame ${project.accent}`} 
+      onWheel={handleWheel}
+      onMouseLeave={() => setIsAutoPlaying(true)}
+      style={{
+        width: '100%',
+        height: '100%',
+        borderRadius: '32px',
+        overflow: 'hidden',
+        position: 'relative',
+        boxShadow: '0 40px 100px rgba(0,0,0,0.25)',
+        border: '1px solid rgba(255, 255, 255, 0.4)'
+      }}
+    >
+      {hasImages && project.images.map((imgSrc, idx) => (
+        <motion.img
+          key={idx}
+          src={imgSrc}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: currentImageIndex === idx ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: currentImageIndex === idx ? 1 : 0,
+            pointerEvents: 'none'
+          }}
+        />
+      ))}
+
       {/* Dark gradient for text readability */}
       <div style={{
         position: 'absolute',
@@ -53,6 +96,37 @@ function ProjectPreview({ project }) {
         pointerEvents: 'none'
       }} />
       <div className="glass-overlay" />
+      
+      {/* Image Indicator (Top Right) */}
+      {hasImages && project.images.length > 1 && (
+        <div style={{
+          position: 'absolute',
+          top: '24px',
+          right: '24px',
+          zIndex: 4,
+          display: 'flex',
+          gap: '6px',
+          background: 'rgba(0, 0, 0, 0.4)',
+          padding: '6px 10px',
+          borderRadius: '12px',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          {project.images.map((_, idx) => (
+            <div 
+              key={idx}
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: currentImageIndex === idx ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
+                transition: 'background 0.2s ease',
+                boxShadow: currentImageIndex === idx ? '0 0 4px rgba(255,255,255,0.8)' : 'none'
+              }}
+            />
+          ))}
+        </div>
+      )}
       
       {/* Text Overlay */}
       <div style={{
@@ -209,6 +283,7 @@ function App() {
   const projects = useMemo(() => enrichProjects(cvData.projects), []);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const hoverTimeoutRef = useRef(null);
 
   // Easter Egg States
   const [isPcbMode, setIsPcbMode] = useState(false);
@@ -385,15 +460,23 @@ function App() {
               key={index}
               className={`project-row ${activeIndex === index ? 'active-row' : ''}`}
               onMouseEnter={() => {
+                if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
-                setHoveredProject(project);
               }}
               onFocus={() => {
+                if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
-                setHoveredProject(project);
               }}
-              onMouseLeave={() => setActiveIndex(null)}
-              onBlur={() => setActiveIndex(null)}
+              onMouseLeave={() => {
+                hoverTimeoutRef.current = setTimeout(() => {
+                  setActiveIndex(null);
+                }, 150);
+              }}
+              onBlur={() => {
+                hoverTimeoutRef.current = setTimeout(() => {
+                  setActiveIndex(null);
+                }, 150);
+              }}
               animate={{
                 backgroundColor: activeIndex === index ? (isPcbMode ? 'rgba(0, 255, 170, 0.15)' : 'rgba(255, 255, 255, 1)') : 'rgba(255, 255, 255, 0)',
                 boxShadow: activeIndex === index ? '0 8px 20px -4px rgba(0, 0, 0, 0.08)' : '0 0px 0px 0px rgba(0, 0, 0, 0)',
@@ -436,13 +519,27 @@ function App() {
             zIndex: 100,
             height: '70vh',
             width: '55vh',
-            pointerEvents: 'none'
+            pointerEvents: 'auto'
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: activeProject ? 1 : 0, scale: activeProject ? 1 : 0.95 }}
           transition={{ duration: 0.1, ease: "easeOut" }}
+          onMouseLeave={() => setActiveIndex(null)} // Close when mouse leaves the floating card too
         >
-          {activeProject && <ProjectPreview project={activeProject} />}
+          <AnimatePresence mode="wait">
+            {activeProject && (
+              <motion.div
+                key={activeProject.title}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.08, ease: "easeOut" }}
+                style={{ width: '100%', height: '100%' }}
+              >
+                <ProjectPreview project={activeProject} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         <div 
