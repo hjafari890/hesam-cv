@@ -927,7 +927,7 @@ function App() {
                 className="mobile-close-btn"
                 onClick={() => setMobileActiveIndex(null)}
               >
-                ×
+                <X size={18} />
               </button>
               <MobileProjectModal project={projects[mobileActiveIndex]} isPcbMode={isPcbMode} />
             </motion.div>
