@@ -486,12 +486,10 @@ function App() {
                 }
               }}
               onMouseEnter={() => {
-                if (window.innerWidth <= 980) return;
                 if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
               }}
               onFocus={() => {
-                if (window.innerWidth <= 980) return;
                 if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
               }}
@@ -571,12 +569,7 @@ function App() {
         </motion.div>
 
         <div 
-          className="identity-copy"
-          style={{ 
-            opacity: activeProject ? 0 : 1, 
-            pointerEvents: activeProject ? 'none' : 'auto',
-            transition: `opacity 0.3s ease ${activeProject ? '0s' : '0.15s'}` 
-          }}
+          className={`identity-copy ${activeProject ? 'fade-out' : ''}`}
         >
           <p className="eyebrow" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: isPcbMode ? '#00ffaa' : 'var(--muted)', marginBottom: '12px', fontWeight: 600 }}>
             University of Oulu • Finland
