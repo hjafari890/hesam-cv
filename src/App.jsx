@@ -21,6 +21,124 @@ function enrichProjects(projects) {
   }));
 }
 
+function MobileProjectModal({ project, isPcbMode }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const hasImages = project.images && project.images.length > 0;
+
+  return (
+    <div style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      background: isPcbMode ? '#0a100a' : '#ffffff',
+      border: isPcbMode ? '1px solid #00ffaa' : 'none',
+      borderRadius: '24px',
+      overflow: 'hidden',
+    }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '32px 24px' }}>
+        <h3 style={{ 
+          fontSize: '1.75rem', 
+          fontWeight: 700, 
+          marginBottom: '12px', 
+          color: isPcbMode ? '#ffffff' : 'var(--text-strong)' 
+        }}>
+          {project.title}
+        </h3>
+        <p style={{ 
+          fontSize: '15px', 
+          lineHeight: 1.6, 
+          color: isPcbMode ? '#a0c0a0' : 'var(--text-main)', 
+          marginBottom: '24px' 
+        }}>
+          {project.description}
+        </p>
+        
+        {project.tags && (
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+            {project.tags.map(tag => (
+              <span key={tag} style={{
+                background: isPcbMode ? 'rgba(0,255,170,0.1)' : 'rgba(0,0,0,0.05)',
+                color: isPcbMode ? '#00ffaa' : 'var(--text-main)',
+                padding: '6px 12px',
+                borderRadius: '100px',
+                fontSize: '12px',
+                fontWeight: 600,
+              }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {hasImages && (
+          <div 
+            onClick={() => {
+              if (project.images.length <= 1) return;
+              setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+            }}
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '4/3',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              background: '#000',
+              cursor: project.images.length > 1 ? 'pointer' : 'default',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
+            }}
+          >
+            {project.images.map((imgSrc, idx) => (
+              <motion.img
+                key={idx}
+                src={imgSrc}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: currentImageIndex === idx ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            ))}
+            
+            {project.images.length > 1 && (
+              <div style={{
+                position: 'absolute',
+                bottom: '16px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                gap: '6px',
+                background: 'rgba(0,0,0,0.5)',
+                padding: '6px 12px',
+                borderRadius: '100px',
+                backdropFilter: 'blur(4px)'
+              }}>
+                {project.images.map((_, idx) => (
+                  <div key={idx} style={{
+                    width: '6px', height: '6px', borderRadius: '50%',
+                    background: currentImageIndex === idx ? '#fff' : 'rgba(255,255,255,0.4)'
+                  }} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        
+        {project.images && project.images.length > 1 && (
+          <p style={{ textAlign: 'center', fontSize: '12px', color: isPcbMode ? '#00ffaa' : 'var(--muted)', marginTop: '16px', fontWeight: 500 }}>
+            Tap image to see more
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ProjectPreview({ project }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -752,7 +870,7 @@ function App() {
               >
                 ×
               </button>
-              <ProjectPreview project={projects[mobileActiveIndex]} />
+              <MobileProjectModal project={projects[mobileActiveIndex]} isPcbMode={isPcbMode} />
             </div>
           </motion.div>
         )}

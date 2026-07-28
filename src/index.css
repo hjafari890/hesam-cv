@@ -586,7 +586,7 @@ a {
   position: relative;
   width: 100%;
   max-width: 500px;
-  aspect-ratio: 4/5; /* Taller aspect ratio for mobile viewing */
+  height: auto;
   max-height: 85vh;
   border-radius: 24px;
   overflow: visible; /* so close button can bleed outside if needed */
