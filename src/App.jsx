@@ -677,7 +677,6 @@ function App() {
                 scale: activeIndex === index ? 1.02 : 1,
                 zIndex: activeIndex === index ? 10 : 1
               }}
-              whileTap={{ scale: 0.96 }}
               transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
               style={{
                 borderRadius: '12px',
