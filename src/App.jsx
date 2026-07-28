@@ -22,40 +22,57 @@ function enrichProjects(projects) {
 }
 
 function MobileProjectModal({ project, isPcbMode }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const hasImages = project.images && project.images.length > 0;
+  const totalSlides = hasImages ? project.images.length + 1 : 1;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  const handleNextSlide = (e) => {
+    e.stopPropagation();
+    if (totalSlides <= 1) return;
+    setCurrentSlideIndex((prev) => (prev + 1) % totalSlides);
+  };
 
   return (
-    <div style={{
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      background: isPcbMode ? '#0a100a' : '#ffffff',
-      border: isPcbMode ? '1px solid #00ffaa' : 'none',
-      borderRadius: '24px',
-      overflow: 'hidden',
+    <div 
+      onClick={handleNextSlide}
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: isPcbMode ? '#0a100a' : '#ffffff',
+        border: isPcbMode ? '1px solid #00ffaa' : 'none',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        position: 'relative',
+        cursor: totalSlides > 1 ? 'pointer' : 'default'
     }}>
-      <div style={{ flex: 1, overflowY: 'auto', padding: '32px 24px' }}>
+      {/* Slide 0: Text */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: currentSlideIndex === 0 ? 1 : 0 }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          padding: '40px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          pointerEvents: currentSlideIndex === 0 ? 'auto' : 'none',
+          overflowY: 'auto',
+          zIndex: 5
+        }}
+      >
         <h3 style={{ 
           fontSize: '1.75rem', 
           fontWeight: 700, 
-          marginBottom: '12px', 
+          marginBottom: '16px', 
           color: isPcbMode ? '#ffffff' : 'var(--text-strong)' 
         }}>
           {project.title}
         </h3>
-        <p style={{ 
-          fontSize: '15px', 
-          lineHeight: 1.6, 
-          color: isPcbMode ? '#a0c0a0' : 'var(--text-main)', 
-          marginBottom: '24px' 
-        }}>
-          {project.description}
-        </p>
-        
         {project.tags && (
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
             {project.tags.map(tag => (
               <span key={tag} style={{
                 background: isPcbMode ? 'rgba(0,255,170,0.1)' : 'rgba(0,0,0,0.05)',
@@ -70,71 +87,64 @@ function MobileProjectModal({ project, isPcbMode }) {
             ))}
           </div>
         )}
+        <p style={{ 
+          fontSize: '15px', 
+          lineHeight: 1.6, 
+          color: isPcbMode ? '#a0c0a0' : 'var(--text-main)', 
+          marginBottom: '0' 
+        }}>
+          {project.description}
+        </p>
+      </motion.div>
 
-        {hasImages && (
-          <div 
-            onClick={() => {
-              if (project.images.length <= 1) return;
-              setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-            }}
+      {/* Slide 1..N: Images */}
+      {hasImages && project.images.map((imgSrc, idx) => {
+        const slideIdx = idx + 1;
+        return (
+          <motion.img
+            key={idx}
+            src={imgSrc}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: currentSlideIndex === slideIdx ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
             style={{
-              position: 'relative',
+              position: 'absolute',
+              inset: 0,
               width: '100%',
-              aspectRatio: '4/3',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              background: '#000',
-              cursor: project.images.length > 1 ? 'pointer' : 'default',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
+              height: '100%',
+              objectFit: 'cover',
+              pointerEvents: 'none',
+              zIndex: 4
             }}
-          >
-            {project.images.map((imgSrc, idx) => (
-              <motion.img
-                key={idx}
-                src={imgSrc}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: currentImageIndex === idx ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
-              />
-            ))}
-            
-            {project.images.length > 1 && (
-              <div style={{
-                position: 'absolute',
-                bottom: '16px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                gap: '6px',
-                background: 'rgba(0,0,0,0.5)',
-                padding: '6px 12px',
-                borderRadius: '100px',
-                backdropFilter: 'blur(4px)'
-              }}>
-                {project.images.map((_, idx) => (
-                  <div key={idx} style={{
-                    width: '6px', height: '6px', borderRadius: '50%',
-                    background: currentImageIndex === idx ? '#fff' : 'rgba(255,255,255,0.4)'
-                  }} />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        
-        {project.images && project.images.length > 1 && (
-          <p style={{ textAlign: 'center', fontSize: '12px', color: isPcbMode ? '#00ffaa' : 'var(--muted)', marginTop: '16px', fontWeight: 500 }}>
-            Tap image to see more
-          </p>
-        )}
-      </div>
+          />
+        );
+      })}
+      
+      {/* Indicator */}
+      {totalSlides > 1 && (
+        <div style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '6px',
+          background: 'rgba(0,0,0,0.4)',
+          padding: '8px 14px',
+          borderRadius: '100px',
+          backdropFilter: 'blur(8px)',
+          zIndex: 10
+        }}>
+          {Array.from({ length: totalSlides }).map((_, idx) => (
+            <div key={idx} style={{
+              width: '6px', height: '6px', borderRadius: '50%',
+              background: currentSlideIndex === idx ? '#fff' : 'rgba(255,255,255,0.3)',
+              transition: 'background 0.2s ease',
+              boxShadow: currentSlideIndex === idx ? '0 0 4px rgba(255,255,255,0.8)' : 'none'
+            }} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
