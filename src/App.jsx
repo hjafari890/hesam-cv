@@ -146,6 +146,15 @@ function ProjectPreview({ project }) {
         </div>
       )}
       
+      {/* Preload the rest of the images for this specific project upon hover */}
+      {hasImages && project.images.length > 1 && (
+        <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
+          {project.images.slice(1).map(img => (
+            <img key={`preload-${img}`} src={img} alt="preload-inner" />
+          ))}
+        </div>
+      )}
+
       {/* Text Overlay */}
       <div style={{
         position: 'absolute',
@@ -729,11 +738,11 @@ function App() {
 
       {isAboutOpen && <AboutDialog onClose={() => setIsAboutOpen(false)} />}
 
-      {/* Global Image Preloader for instant crossfades */}
+      {/* Global Image Preloader for instant crossfades (Cover photos only) */}
       <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
-        {cvData.projects.map(p => p.images && p.images.map(img => (
-          <img key={img} src={img} alt="preload" />
-        )))}
+        {cvData.projects.map(p => p.images && p.images.length > 0 && (
+          <img key={p.images[0]} src={p.images[0]} alt="preload-cover" />
+        ))}
       </div>
     </main>
   );
