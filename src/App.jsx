@@ -75,6 +75,11 @@ function ProjectPreview({ project }) {
       className={`media-frame ${project.accent}`} 
       onWheel={handleWheel}
       onMouseLeave={() => setIsAutoPlaying(true)}
+      onClick={() => {
+        if (!project.images || project.images.length <= 1) return;
+        setIsAutoPlaying(false);
+        setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+      }}
       style={{
         width: '100%',
         height: '100%',
@@ -323,6 +328,8 @@ function App() {
   const [isWeatherActive, setIsWeatherActive] = useState(false);
   const [showWeatherHint, setShowWeatherHint] = useState(false);
 
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
+
   useEffect(() => {
     let interval;
     if (isPcbMode && loadingProgress < 99) {
@@ -486,6 +493,12 @@ function App() {
             <motion.button
               key={index}
               className={`project-row ${activeIndex === index ? 'active-row' : ''}`}
+              onClick={() => {
+                // On mobile devices, open the fullscreen modal
+                if (window.innerWidth <= 980) {
+                  setMobileActiveIndex(index);
+                }
+              }}
               onMouseEnter={() => {
                 if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
@@ -737,6 +750,32 @@ function App() {
       </section>
 
       {isAboutOpen && <AboutDialog onClose={() => setIsAboutOpen(false)} />}
+
+      {/* Mobile Project Modal */}
+      <AnimatePresence>
+        {mobileActiveIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="mobile-modal-overlay"
+            onClick={() => setMobileActiveIndex(null)}
+          >
+            <div 
+              className="mobile-modal-content"
+              onClick={(e) => e.stopPropagation()} 
+            >
+              <button 
+                className="mobile-close-btn"
+                onClick={() => setMobileActiveIndex(null)}
+              >
+                ×
+              </button>
+              <ProjectPreview project={projects[mobileActiveIndex]} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Global Image Preloader for instant crossfades (Cover photos only) */}
       <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
