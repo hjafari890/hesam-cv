@@ -79,6 +79,11 @@ a {
   text-align: left;
   cursor: pointer;
   outline: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin-left: -16px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .project-grid {
@@ -386,8 +391,8 @@ a {
     position: relative;
     width: 100%;
     height: auto;
-    min-height: 58vh;
-    padding: 72px 24px 54px;
+    min-height: auto;
+    padding: 12vh 24px 4vh;
   }
 
   .project-column {
@@ -411,9 +416,7 @@ a {
   }
 
   .date-stamp {
-    position: absolute;
-    right: 24px;
-    bottom: 22px;
+    display: none;
   }
 
   .project-org {
@@ -432,13 +435,23 @@ a {
   }
 
   .project-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 18px;
+    padding: 12px 0;
+    margin-left: 0;
+    max-width: none;
+    border-radius: 0;
   }
 
-  .project-name,
-  .project-year {
+  .project-grid {
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+
+  .project-name {
     font-size: 15px;
+  }
+  
+  .project-year {
+    font-size: 14px;
   }
 
   .project-dialog {
