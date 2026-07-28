@@ -27,14 +27,30 @@ function MobileProjectModal({ project, isPcbMode }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleNextSlide = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     if (totalSlides <= 1) return;
     setCurrentSlideIndex((prev) => (prev + 1) % totalSlides);
   };
 
+  const handlePrevSlide = (e) => {
+    if (e) e.stopPropagation();
+    if (totalSlides <= 1) return;
+    setCurrentSlideIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
   return (
-    <div 
+    <motion.div 
       onClick={handleNextSlide}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.15}
+      onDragEnd={(e, info) => {
+        if (info.offset.x < -50) {
+          handleNextSlide();
+        } else if (info.offset.x > 50) {
+          handlePrevSlide();
+        }
+      }}
       style={{
         width: '100%',
         height: '100%',
@@ -159,7 +175,7 @@ function MobileProjectModal({ project, isPcbMode }) {
           ))}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -453,35 +469,6 @@ function AboutDialog({ onClose }) {
   );
 }
 
-function MacDock({ cvData, isPcbMode, onTogglePcb }) {
-  return (
-    <div className="mac-dock">
-      <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : '#fff' }} aria-label="Email">
-        <Mail size={20} />
-      </a>
-      <a href={`https://${cvData.personal.linkedin}`} target="_blank" rel="noreferrer" style={{ color: isPcbMode ? '#00ffaa' : '#fff' }} aria-label="LinkedIn">
-        <ExternalLink size={20} />
-      </a>
-      <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
-      <button 
-        onClick={onTogglePcb}
-        style={{ 
-          background: 'none', 
-          border: 'none', 
-          cursor: 'pointer', 
-          color: isPcbMode ? '#00ffaa' : '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 0
-        }}
-        aria-label="Toggle PCB Mode"
-      >
-        <Cpu size={20} />
-      </button>
-    </div>
-  );
-}
 
 function App() {
   const projects = useMemo(() => enrichProjects(cvData.projects), []);
@@ -774,6 +761,14 @@ function App() {
               <FileText size={14} />
               About
             </button>
+            <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
+              <Mail size={14} />
+              Email
+            </a>
+            <a href={`https://${cvData.personal.linkedin}`} target="_blank" rel="noreferrer" style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
+              <ExternalLink size={14} />
+              LinkedIn
+            </a>
           </nav>
 
           {/* PCB Mode Secret Loading Bar - Inline */}
@@ -928,17 +923,18 @@ function App() {
                 }
               }}
             >
+              <button 
+                className="mobile-close-btn"
+                onClick={() => setMobileActiveIndex(null)}
+              >
+                ×
+              </button>
               <MobileProjectModal project={projects[mobileActiveIndex]} isPcbMode={isPcbMode} />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <MacDock 
-        cvData={cvData} 
-        isPcbMode={isPcbMode} 
-        onTogglePcb={() => setIsPcbMode(!isPcbMode)} 
-      />
 
       {/* Global Image Preloader for instant crossfades (Cover photos only) */}
       <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
