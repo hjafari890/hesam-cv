@@ -47,6 +47,20 @@ function MobileProjectModal({ project, isPcbMode }) {
         position: 'relative',
         cursor: totalSlides > 1 ? 'pointer' : 'default'
     }}>
+      {/* iOS Style Pull Indicator */}
+      <div style={{
+        position: 'absolute',
+        top: '8px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '36px',
+        height: '4px',
+        borderRadius: '4px',
+        background: isPcbMode ? 'rgba(0,255,170,0.3)' : 'rgba(0,0,0,0.1)',
+        zIndex: 20,
+        pointerEvents: 'none'
+      }} />
+
       {/* Slide 0: Text */}
       <motion.div 
         initial={{ opacity: 0 }}
