@@ -473,20 +473,6 @@ function App() {
         ref={scrollRef}
         className="project-column"
         aria-label="Selected projects"
-        style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: 'max(360px, 41vw)',
-          height: '100vh',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          padding: '18vh 5vw 18vh 18vw',
-          boxSizing: 'border-box',
-          scrollbarWidth: 'none',
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)'
-        }}
       >
         <div className="project-list">
           {projects.map((project, index) => (

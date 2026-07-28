@@ -49,9 +49,18 @@ a {
 }
 
 .project-column {
+  position: fixed;
+  left: 0;
+  top: 0;
   width: max(360px, 41vw);
-  min-height: 100vh;
-  padding: 17vh 8vw 12vh 18vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 18vh 5vw 18vh 18vw;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .project-list {
@@ -375,12 +384,20 @@ a {
 
   .identity-column {
     position: relative;
+    width: 100%;
+    height: auto;
     min-height: 58vh;
     padding: 72px 24px 54px;
   }
 
   .project-column {
+    position: relative;
+    width: 100%;
+    height: auto;
     min-height: auto;
+    overflow-y: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
     padding: 28px 24px 84px;
   }
 
