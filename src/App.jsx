@@ -486,10 +486,12 @@ function App() {
                 }
               }}
               onMouseEnter={() => {
+                if (window.innerWidth <= 980) return;
                 if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
               }}
               onFocus={() => {
+                if (window.innerWidth <= 980) return;
                 if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
                 setActiveIndex(index);
               }}
@@ -510,6 +512,16 @@ function App() {
                 zIndex: activeIndex === index ? 10 : 1
               }}
               transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
+              style={{
+                borderRadius: '12px',
+                padding: '8px 16px',
+                marginLeft: '-16px',
+                border: 'none',
+                position: 'relative',
+                cursor: 'default',
+                width: '100%',
+                maxWidth: '400px'
+              }}
             >
               <div className="project-grid">
                 <div className="project-name-col">

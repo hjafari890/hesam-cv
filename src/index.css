@@ -435,23 +435,15 @@ a {
   }
 
   .project-row {
-    padding: 12px 0;
-    margin-left: 0;
-    max-width: none;
-    border-radius: 0;
+    padding: 12px 0 !important;
+    margin-left: 0 !important;
+    max-width: none !important;
+    border-radius: 0 !important;
   }
 
   .project-grid {
     grid-template-columns: 1fr auto;
     gap: 16px;
-  }
-
-  .project-name {
-    font-size: 15px;
-  }
-  
-  .project-year {
-    font-size: 14px;
   }
 
   .project-dialog {
