@@ -21,6 +21,16 @@ function enrichProjects(projects) {
   }));
 }
 
+const getWeatherEmoji = (code) => {
+  if (code <= 3) return '☀️'; // clear, partly cloudy
+  if (code <= 48) return '☁️'; // fog
+  if (code <= 67) return '🌧️'; // rain
+  if (code <= 77) return '❄️'; // snow
+  if (code <= 82) return '🌧️'; // rain showers
+  if (code <= 86) return '❄️'; // snow showers
+  return '⛈️'; // thunderstorm
+};
+
 function MobileProjectModal({ project, isPcbMode }) {
   const hasImages = project.images && project.images.length > 0;
   const totalSlides = hasImages ? project.images.length + 1 : 1;
@@ -860,7 +870,7 @@ function App() {
             }}
           >
             {isWeatherActive ? (
-              `📍 Oulu, FI • ${weatherData ? `${weatherData.temp}°C ❄️` : 'Loading...'} • 00:13`
+              `📍 Oulu, FI • ${weatherData ? `${weatherData.temp}°C ${getWeatherEmoji(weatherData.code)}` : 'Loading...'} • ${new Date().toLocaleTimeString('en-US', { timeZone: 'Europe/Helsinki', hour: '2-digit', minute: '2-digit', hour12: false })}`
             ) : (
               "Jul '26"
             )}
