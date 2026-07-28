@@ -546,7 +546,7 @@ function App() {
             zIndex: 100,
             height: '70vh',
             width: '55vh',
-            pointerEvents: 'auto'
+            pointerEvents: activeProject ? 'auto' : 'none'
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: activeProject ? 1 : 0, scale: activeProject ? 1 : 0.95 }}
