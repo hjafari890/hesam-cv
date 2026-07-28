@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { ExternalLink, FileText, Mail, X } from 'lucide-react';
+import { ExternalLink, FileText, Mail, X, Cpu } from 'lucide-react';
 import { cvData } from './data/cv';
 import heroImage from './assets/hero.png';
 import MeshBackground from './components/MeshBackground';
@@ -453,6 +453,36 @@ function AboutDialog({ onClose }) {
   );
 }
 
+function MacDock({ cvData, isPcbMode, onTogglePcb }) {
+  return (
+    <div className="mac-dock">
+      <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : '#fff' }} aria-label="Email">
+        <Mail size={20} />
+      </a>
+      <a href={`https://${cvData.personal.linkedin}`} target="_blank" rel="noreferrer" style={{ color: isPcbMode ? '#00ffaa' : '#fff' }} aria-label="LinkedIn">
+        <ExternalLink size={20} />
+      </a>
+      <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.2)' }} />
+      <button 
+        onClick={onTogglePcb}
+        style={{ 
+          background: 'none', 
+          border: 'none', 
+          cursor: 'pointer', 
+          color: isPcbMode ? '#00ffaa' : '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 0
+        }}
+        aria-label="Toggle PCB Mode"
+      >
+        <Cpu size={20} />
+      </button>
+    </div>
+  );
+}
+
 function App() {
   const projects = useMemo(() => enrichProjects(cvData.projects), []);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -471,6 +501,15 @@ function App() {
   const [showWeatherHint, setShowWeatherHint] = useState(false);
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
+
+  useEffect(() => {
+    if (mobileActiveIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileActiveIndex]);
 
   useEffect(() => {
     let interval;
@@ -651,6 +690,7 @@ function App() {
                 scale: activeIndex === index ? 1.02 : 1,
                 zIndex: activeIndex === index ? 10 : 1
               }}
+              whileTap={{ scale: 0.96 }}
               transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
               style={{
                 borderRadius: '12px',
@@ -734,14 +774,6 @@ function App() {
               <FileText size={14} />
               About
             </button>
-            <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
-              <Mail size={14} />
-              Email
-            </a>
-            <a href={`https://${cvData.personal.linkedin}`} target="_blank" rel="noreferrer" style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
-              <ExternalLink size={14} />
-              LinkedIn
-            </a>
           </nav>
 
           {/* PCB Mode Secret Loading Bar - Inline */}
@@ -884,21 +916,29 @@ function App() {
             className="mobile-modal-overlay"
             onClick={() => setMobileActiveIndex(null)}
           >
-            <div 
+            <motion.div 
               className="mobile-modal-content"
               onClick={(e) => e.stopPropagation()} 
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(e, info) => {
+                if (info.offset.y > 100) {
+                  setMobileActiveIndex(null);
+                }
+              }}
             >
-              <button 
-                className="mobile-close-btn"
-                onClick={() => setMobileActiveIndex(null)}
-              >
-                ×
-              </button>
               <MobileProjectModal project={projects[mobileActiveIndex]} isPcbMode={isPcbMode} />
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <MacDock 
+        cvData={cvData} 
+        isPcbMode={isPcbMode} 
+        onTogglePcb={() => setIsPcbMode(!isPcbMode)} 
+      />
 
       {/* Global Image Preloader for instant crossfades (Cover photos only) */}
       <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
