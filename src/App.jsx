@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { ExternalLink, FileText, Mail, X } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { cvData } from './data/cv';
 import heroImage from './assets/hero.png';
 import MeshBackground from './components/MeshBackground';
@@ -764,6 +765,7 @@ function App() {
           <img key={p.images[0]} src={p.images[0]} alt="preload-cover" />
         ))}
       </div>
+      <SpeedInsights />
     </main>
   );
 }
