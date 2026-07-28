@@ -447,10 +447,10 @@ a {
   }
 
   .project-row {
-    padding: 12px 0 !important;
-    margin-left: 0 !important;
+    padding: 10px 16px !important;
+    margin-left: -16px !important;
     max-width: none !important;
-    border-radius: 0 !important;
+    border-radius: 12px !important;
   }
 
   .project-grid {
