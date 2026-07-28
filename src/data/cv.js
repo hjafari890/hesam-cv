@@ -53,7 +53,7 @@ export const cvData = {
       year: "2026",
       organization: "EDGE AI & COMPUTER VISION",
       description: "Designed a compressed, self-supervised CNN-ViT fused architectures using JEPA and SEED knowledge distillation for real-time solar panel defect classification. Optimized for single-board computers to deliver low latency, local data privacy and edge execution.",
-      images: ["/images/JEPA/1.jpg", "/images/JEPA/2.jpg", "/images/JEPA/3.jpg", "/images/JEPA/4.jpg", "/images/JEPA/5.jpg", "/images/JEPA/6.jpg"],
+      images: ["/images/jepa/1.jpg", "/images/jepa/2.jpg", "/images/jepa/3.jpg", "/images/jepa/4.jpg", "/images/jepa/5.jpg", "/images/jepa/6.jpg"],
       technologies: ["SSL", "JEPA", "TinyML", "Knowledge Distillation", "Vision Transformers (ViT)"]
     },
     {
@@ -61,7 +61,7 @@ export const cvData = {
       year: "2026",
       organization: "HARDWARE & MIXED-SIGNAL PCB DESIGN",
       description: "Designed a 4-layer mixed-signal PCB testbed for the Texas Instrument CC2650. Integrated high-precision 24-bit AFE (ECG/respiration) and PPG sensor hub. Implementing isolated domains, bidirectional level translation, trace topology, and BOM optimization for fabrication.",
-      images: ["/images/bme shield/1.jpg", "/images/bme shield/2.jpg", "/images/bme shield/3.jpg", "/images/bme shield/4.jpg", "/images/bme shield/5.jpg"],
+      images: ["/images/bme shield/1.jpg", "/images/bme shield/3.jpg", "/images/bme shield/5.jpg"],
       technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "Analog Front-End"]
     },
     {
@@ -85,7 +85,7 @@ export const cvData = {
       year: "2026",
       organization: "INDUSTRIAL IoT & AI",
       description: "Built a modular, production-grade Industrial IoT safety platform using custom ESP32 sensor nodes. Deployed a predictive XGBoost AI engine on a Raspberry Pi 5 gateway to predict hydrogen leak locations, severity, and risk scores over MQTT to a central dashboard.",
-      images: ["/images/hydrogen/1.jpg", "/images/hydrogen/2.jpg", "/images/hydrogen/3.jpg", "/images/hydrogen/4.jpg", "/images/hydrogen/5.jpg", "/images/hydrogen/6.jpg", "/images/hydrogen/7.jpg"],
+      images: ["/images/hydrogen/1.jpg", "/images/hydrogen/2.jpg", "/images/hydrogen/3.jpg", "/images/hydrogen/4.jpg", "/images/hydrogen/5.jpg"],
       technologies: ["ESP32", "Raspberry Pi 5", "XGBoost AI", "MQTT", "Custom PCB", "C / Python"]
     },
     {
@@ -109,7 +109,7 @@ export const cvData = {
       year: "2026",
       organization: "POWERTRAIN & VEHICLE SIMULATION",
       description: "Co-developed a web-based Hybrid Electric Vehicle (HEV) powertrain simulator integrated with Simulink for Formula Student Oulu race car. Modeled ICE and electric motor power split, battery State-of-Charge (SoC), and lap energy management to strategies and optimize endurance performance.",
-      images: ["/images/hev sim/1.jpg", "/images/hev sim/2.jpg", "/images/hev sim/3.jpg", "/images/hev sim/4.jpg", "/images/hev sim/5.jpg"],
+      images: ["/images/hev sim/1.jpg", "/images/hev sim/2.jpg", "/images/hev sim/3.jpg", "/images/hev sim/4.jpg"],
       technologies: ["MATLAB", "Python", "Simulation", "HEV Energy Management", "Vehicle Dynamics"]
     },
     {
@@ -117,7 +117,7 @@ export const cvData = {
       year: "2026",
       organization: "SIGNAL PROCESSING",
       description: "Functional Near-Infrared Spectroscopy (fNIRS) signal processing to quantify cerebral hemodynamic responses. Implemented kinematic motion-artifact decoupling, time-frequency spectral decomposition, and parametric noise suppression in OriginLab.",
-      images: ["/images/bme measurement hemodynamic/1.jpg", "/images/bme measurement hemodynamic/2.jpg", "/images/bme measurement hemodynamic/3.jpg", "/images/bme measurement hemodynamic/4.jpg", "/images/bme measurement hemodynamic/5.jpg"],
+      images: ["/images/hemodynamic/1.jpg", "/images/hemodynamic/3.jpg", "/images/hemodynamic/4.jpg"],
       technologies: ["OriginLab", "fNIRS", "Bio-optics", "Corticovascular Analytics", "DSP", "MATLAB"]
     },
     {
@@ -125,7 +125,7 @@ export const cvData = {
       year: "2025",
       organization: "MULTIPHYSICS SIMULATION & FEA",
       description: "Modeled and optimized a calorimetric thermal flow sensor for transformer oil using COMSOL Multiphysics. Coupled Laminar Flow and Heat Transfer physics with Wheatstone bridge signal conditioning to achieve 5.4% response nonlinearity for precision low-flow measurement.",
-      images: ["/images/COMSOL/1.jpg", "/images/COMSOL/2.jpg", "/images/COMSOL/3.jpg", "/images/COMSOL/4.jpg", "/images/COMSOL/5.jpg"],
+      images: ["/images/comsol/1.jpg", "/images/comsol/2.jpg", "/images/comsol/3.jpg"],
       technologies: ["COMSOL Multiphysics", "Finite Element Analysis (FEA)", "Analog Signal Conditioning"]
     },
     {

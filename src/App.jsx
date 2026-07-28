@@ -36,6 +36,24 @@ function ProjectPreview({ project }) {
     return () => clearInterval(interval);
   }, [isAutoPlaying, project.images]);
 
+  // Keyboard arrow key navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!project.images || project.images.length <= 1) return;
+      if (e.key === 'ArrowRight' || e.key === 'Right') {
+        e.preventDefault(); // Stop page from scrolling
+        setIsAutoPlaying(false);
+        setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+      } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+        e.preventDefault(); // Stop page from scrolling
+        setIsAutoPlaying(false);
+        setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [project.images]);
+
   // Handle scroll scrubbing
   const handleWheel = (e) => {
     e.stopPropagation();
@@ -710,6 +728,13 @@ function App() {
       </section>
 
       {isAboutOpen && <AboutDialog onClose={() => setIsAboutOpen(false)} />}
+
+      {/* Global Image Preloader for instant crossfades */}
+      <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
+        {cvData.projects.map(p => p.images && p.images.map(img => (
+          <img key={img} src={img} alt="preload" />
+        )))}
+      </div>
     </main>
   );
 }
