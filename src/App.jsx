@@ -144,6 +144,7 @@ function MobileProjectModal({ project, isPcbMode }) {
           <motion.img
             key={idx}
             src={imgSrc}
+            alt={`${project.title} screenshot ${idx + 1}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: currentSlideIndex === slideIdx ? 1 : 0 }}
             transition={{ duration: 0.3 }}
@@ -262,6 +263,7 @@ function ProjectPreview({ project }) {
         <motion.img
           key={idx}
           src={imgSrc}
+          alt={`${project.title} screenshot ${idx + 1}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: currentImageIndex === idx ? 1 : 0 }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
@@ -323,7 +325,7 @@ function ProjectPreview({ project }) {
       {hasImages && project.images.length > 1 && (
         <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
           {project.images.slice(1).map(img => (
-            <img key={`preload-${img}`} src={img} alt="preload-inner" />
+            <img key={`preload-${img}`} src={img} alt="" aria-hidden="true" />
           ))}
         </div>
       )}
