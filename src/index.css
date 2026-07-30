@@ -77,7 +77,7 @@ a {
   border: 0;
   background: transparent;
   text-align: left;
-  cursor: pointer;
+  cursor: default;
   outline: none;
   border-radius: 12px;
   padding: 8px 16px;

@@ -820,7 +820,7 @@ function App() {
                 marginLeft: '-16px',
                 border: 'none',
                 position: 'relative',
-                cursor: 'pointer',
+                cursor: 'default',
                 width: '100%',
                 maxWidth: '400px'
               }}
@@ -879,7 +879,7 @@ function App() {
           <h1 style={{ fontSize: '2.4rem', lineHeight: 1.25, letterSpacing: '-0.03em', color: isPcbMode ? '#ffffff' : 'var(--text-strong)', marginBottom: '24px' }}>
             <strong 
               onClick={handleNameClick}
-              style={{ fontWeight: 700, userSelect: 'none', cursor: 'pointer' }}
+              style={{ fontWeight: 700, userSelect: 'none', cursor: 'default' }}
             >
               {cvData.personal.name},
             </strong>
@@ -1036,46 +1036,75 @@ function App() {
         />
       )}
 
-      {/* 2-Minute Easter Egg Toast Hint */}
+      {/* Secretive & Playful 2-Minute Easter Egg Toast Hint */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            initial={{ opacity: 0, y: 40, scale: 0.85, rotate: -2 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, y: 40, scale: 0.85, rotate: 2 }}
+            transition={{ type: "spring", stiffness: 350, damping: 25 }}
             style={{
               position: 'fixed',
-              bottom: '24px',
-              left: '24px',
+              bottom: '28px',
+              left: '28px',
               zIndex: 145,
-              maxWidth: '340px',
-              padding: '14px 18px',
-              borderRadius: '16px',
-              background: 'rgba(255, 255, 255, 0.92)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(12, 16, 21, 0.12)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
+              maxWidth: '350px',
+              padding: '16px 20px',
+              borderRadius: '20px',
+              background: 'rgba(9, 18, 14, 0.94)',
+              backdropFilter: 'blur(24px)',
+              border: '1px dashed rgba(0, 255, 170, 0.5)',
+              boxShadow: '0 20px 50px rgba(0, 255, 170, 0.18), 0 10px 30px rgba(0, 0, 0, 0.4)',
               display: 'flex',
               alignItems: 'flex-start',
-              gap: '12px',
-              color: 'var(--text-strong)',
+              gap: '14px',
+              color: '#e0ffe0',
               fontSize: '13px',
-              lineHeight: 1.4
+              lineHeight: 1.45
             }}
           >
-            <Sparkles size={18} style={{ flexShrink: 0, color: '#f59e0b', marginTop: '2px' }} />
+            <div style={{
+              background: 'rgba(0, 255, 170, 0.15)',
+              padding: '8px',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#00ffaa',
+              flexShrink: 0,
+              marginTop: '2px'
+            }}>
+              <Cpu size={20} />
+            </div>
             <div style={{ flex: 1 }}>
-              <p style={{ margin: 0, fontWeight: 600 }}>Secret Portfolio Hint</p>
-              <p style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '12px' }}>
-                Try clicking <strong>3 times</strong> on a specific section of the page to unlock secret PCB mode... ⚡
+              <p style={{ margin: 0, fontWeight: 700, fontSize: '0.85rem', color: '#00ffaa', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                🕵️ Classified System Rumor
+              </p>
+              <p style={{ margin: '6px 0 0', color: 'rgba(224, 255, 224, 0.85)', fontSize: '12.5px', lineHeight: 1.5 }}>
+                Legend has it that repeatedly poking a certain biomedical engineer's name <strong>3 times</strong> triggers a secret PCB hardware override... but shhh, you didn't hear it from me! 🤫
               </p>
             </div>
             <button
               onClick={() => setShowEasterEggHint(false)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'var(--muted)' }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '22px',
+                height: '22px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                padding: 0,
+                color: '#00ffaa',
+                flexShrink: 0,
+                marginTop: '2px'
+              }}
               aria-label="Dismiss hint"
             >
-              <X size={14} />
+              <X size={13} />
             </button>
           </motion.div>
         )}
