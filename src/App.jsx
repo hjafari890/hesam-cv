@@ -610,15 +610,26 @@ function App() {
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
 
+  const corners = useMemo(() => [
+    { bottom: '28px', left: '28px' },
+    { top: '80px', left: '28px' },
+    { bottom: '28px', right: '80px' },
+    { top: '80px', right: '80px' }
+  ], []);
+
+  const [hintCorner, setHintCorner] = useState(corners[0]);
+
   // Idle/Dwell Timer for PCB Mode Easter Egg Hint (Set to 1s for immediate testing)
   useEffect(() => {
     const hintTimer = setTimeout(() => {
       if (!isPcbMode) {
+        const randomPos = corners[Math.floor(Math.random() * corners.length)];
+        setHintCorner(randomPos);
         setShowEasterEggHint(true);
       }
     }, 1000);
     return () => clearTimeout(hintTimer);
-  }, [isPcbMode]);
+  }, [isPcbMode, corners]);
 
   // Keyboard Up/Down Navigation for Projects
   useEffect(() => {
@@ -1036,68 +1047,70 @@ function App() {
         />
       )}
 
-      {/* Digital Glitch Easter Egg Toast Hint */}
+      {/* Pixel Glitch Easter Egg Toast Hint (Random Corner Position) */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={{ 
-              opacity: [0.9, 1, 0.85, 1],
-              y: 0,
-              scale: 1,
-              x: [0, -2, 2, -1, 1, 0]
+              opacity: [0, 1, 0.5, 1, 0.9, 1],
+              scale: [0.95, 1.02, 0.98, 1],
+              x: [0, -4, 4, -2, 2, 0],
+              skewX: [0, -8, 6, -3, 0]
             }}
-            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            exit={{ opacity: 0, scale: 0.85 }}
             transition={{
-              duration: 0.4,
-              x: { duration: 0.25, repeat: 3, repeatType: "reverse", ease: "easeInOut" }
+              duration: 0.45,
+              ease: "easeOut"
             }}
             style={{
               position: 'fixed',
-              bottom: '28px',
-              left: '28px',
+              ...hintCorner,
               zIndex: 145,
-              maxWidth: '320px',
-              padding: '14px 18px',
-              borderRadius: '16px',
-              background: 'rgba(7, 15, 12, 0.94)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(0, 255, 170, 0.4)',
-              boxShadow: '0 0 25px rgba(0, 255, 170, 0.2), 0 10px 30px rgba(0,0,0,0.5)',
+              maxWidth: '310px',
+              padding: '12px 16px',
+              borderRadius: '12px',
+              background: 'rgba(5, 12, 9, 0.95)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid #00ffaa',
+              boxShadow: '0 0 25px rgba(0, 255, 170, 0.3), 0 10px 30px rgba(0,0,0,0.6)',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              color: '#e0ffe0',
-              fontSize: '13px',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
+              color: '#00ffaa',
+              fontSize: '12.5px',
+              fontFamily: 'monospace, SFMono-Regular, Consolas, sans-serif'
             }}
           >
-            <motion.div
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#00ffaa',
-                boxShadow: '0 0 10px #00ffaa',
-                flexShrink: 0
+            <motion.p
+              animate={{
+                textShadow: [
+                  '1px 0 0 #ff0055, -1px 0 0 #00ffff',
+                  '-2px 0 0 #ff0055, 2px 0 0 #00ffff',
+                  '0 0 8px #00ffaa',
+                  '1px 0 0 #ff0055, -1px 0 0 #00ffff',
+                  '0 0 4px #00ffaa'
+                ]
               }}
-            />
-            <div style={{ flex: 1 }}>
-              <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#00ffaa', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
-                SIGNAL DETECTED
-              </span>
-              <p style={{ margin: 0, color: '#f0fff5', fontSize: '12.5px', lineHeight: 1.45, fontWeight: 500 }}>
-                Repeatedly poking a certain word triggers a secret portfolio showcase. ⚡
-              </p>
-            </div>
+              transition={{ duration: 0.8, repeat: Infinity, repeatType: "mirror" }}
+              style={{
+                margin: 0,
+                color: '#ffffff',
+                lineHeight: 1.45,
+                fontWeight: 500,
+                letterSpacing: '-0.01em',
+                flex: 1
+              }}
+            >
+              Repeatedly poking a certain word triggers a secret portfolio showcase. ⚡
+            </motion.p>
+
             <button
               onClick={() => setShowEasterEggHint(false)}
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: 'none',
-                borderRadius: '50%',
+                background: 'rgba(0, 255, 170, 0.15)',
+                border: '1px solid rgba(0, 255, 170, 0.4)',
+                borderRadius: '4px',
                 width: '22px',
                 height: '22px',
                 display: 'flex',
@@ -1110,7 +1123,7 @@ function App() {
               }}
               aria-label="Dismiss hint"
             >
-              <X size={13} />
+              <X size={12} />
             </button>
           </motion.div>
         )}
