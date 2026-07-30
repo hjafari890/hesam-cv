@@ -583,71 +583,6 @@ function AccessibilityDialog({ onClose, isFixedPreview, setIsFixedPreview, reduc
   );
 }
 
-function VideoIntroDialog({ onClose, isPcbMode }) {
-  return (
-    <div className="dialog-backdrop" role="presentation" onMouseDown={onClose}>
-      <article
-        className="project-dialog"
-        style={{ 
-          maxWidth: '580px', 
-          padding: '28px', 
-          gridTemplateColumns: '1fr',
-          borderRadius: '24px',
-          background: isPcbMode ? '#0a100a' : 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(24px)',
-          boxShadow: '0 30px 90px rgba(0, 0, 0, 0.25)',
-          border: isPcbMode ? '1px solid #00ffaa' : '1px solid rgba(255, 255, 255, 0.9)',
-          position: 'relative'
-        }}
-        aria-modal="true"
-        role="dialog"
-        onMouseDown={(e) => e.stopPropagation()}
-      >
-        <button className="icon-button close-button" type="button" onClick={onClose} aria-label="Close video intro">
-          <X size={18} />
-        </button>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Video size={20} style={{ color: isPcbMode ? '#00ffaa' : 'var(--text-strong)' }} />
-            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, color: isPcbMode ? '#fff' : 'var(--text-strong)' }}>
-              Engineering Overview — Hesamoddin Jafari
-            </h3>
-          </div>
-
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            paddingTop: '56.25%',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            background: '#000'
-          }}>
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0"
-              title="Hesamoddin Jafari Video Introduction"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                border: 0
-              }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-
-          <p style={{ margin: 0, fontSize: '0.88rem', color: isPcbMode ? '#a0c0a0' : 'var(--muted)', lineHeight: 1.5 }}>
-            A short overview covering IoT system design, wearable physiological sensing, PCB hardware optimization, and TinyML / Edge AI projects at the University of Oulu.
-          </p>
-        </div>
-      </article>
-    </div>
-  );
-}
-
 
 function App() {
   const projects = useMemo(() => enrichProjects(cvData.projects), []);
@@ -659,7 +594,6 @@ function App() {
   const [isFixedPreview, setIsFixedPreview] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const projectRefs = useRef([]);
 
   // Easter Egg States
@@ -676,7 +610,7 @@ function App() {
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
 
-  // 2-Minute Idle/Dwell Timer for PCB Mode Easter Egg Hint
+  // 2-Minute Idle/Dwell Timer for Subtle PCB Mode Easter Egg Hint
   useEffect(() => {
     const hintTimer = setTimeout(() => {
       if (!isPcbMode) {
@@ -689,7 +623,7 @@ function App() {
   // Keyboard Up/Down Navigation for Projects
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName) || isAboutOpen || mobileActiveIndex !== null || isAccessibilityOpen || isVideoOpen) {
+      if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName) || isAboutOpen || mobileActiveIndex !== null || isAccessibilityOpen) {
         return;
       }
       if (e.key === 'ArrowDown') {
@@ -714,7 +648,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [projects.length, isAboutOpen, mobileActiveIndex, isAccessibilityOpen, isVideoOpen]);
+  }, [projects.length, isAboutOpen, mobileActiveIndex, isAccessibilityOpen]);
 
   useEffect(() => {
     if (mobileActiveIndex !== null) {
@@ -808,37 +742,43 @@ function App() {
   return (
     <main className="portfolio-shell">
       <MeshBackground isPcbMode={isPcbMode} reducedMotion={reducedMotion} />
-      
+
+      {/* Top Right Icon-Only Accessibility Button */}
+      <button
+        type="button"
+        onClick={() => setIsAccessibilityOpen(true)}
+        aria-label="Accessibility settings"
+        title="Accessibility settings"
+        style={{
+          position: 'fixed',
+          top: '24px',
+          right: '24px',
+          zIndex: 120,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '42px',
+          height: '42px',
+          borderRadius: '50%',
+          background: isPcbMode ? 'rgba(7, 15, 12, 0.85)' : 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(16px)',
+          border: isPcbMode ? '1px solid rgba(0, 255, 170, 0.4)' : '1px solid rgba(12, 16, 21, 0.12)',
+          boxShadow: isPcbMode ? '0 4px 16px rgba(0, 255, 170, 0.15)' : '0 4px 16px rgba(0, 0, 0, 0.06)',
+          color: isPcbMode ? '#00ffaa' : 'var(--text-strong)',
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease, background 0.2s ease'
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.08)')}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+      >
+        <Accessibility size={20} />
+      </button>
+
       <section
         className="project-column"
         aria-label="Selected projects"
       >
-        <div className="project-list" style={{ position: 'relative' }}>
-          {/* Animated Continuous Vertical Timeline Line */}
-          <div style={{
-            position: 'absolute',
-            left: '-14px',
-            top: '12px',
-            bottom: '12px',
-            width: '2px',
-            background: isPcbMode ? 'rgba(0, 255, 170, 0.15)' : 'rgba(12, 16, 21, 0.08)',
-            borderRadius: '2px',
-            zIndex: 1
-          }}>
-            <motion.div
-              animate={{
-                height: activeIndex !== null ? `${((activeIndex + 1) / projects.length) * 100}%` : '0%'
-              }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              style={{
-                width: '100%',
-                background: isPcbMode ? '#00ffaa' : 'var(--text-strong)',
-                boxShadow: isPcbMode ? '0 0 8px #00ffaa' : '0 0 6px rgba(0,0,0,0.3)',
-                borderRadius: '2px'
-              }}
-            />
-          </div>
-
+        <div className="project-list">
           {projects.map((project, index) => (
             <motion.button
               ref={(el) => (projectRefs.current[index] = el)}
@@ -885,50 +825,8 @@ function App() {
                 maxWidth: '400px'
               }}
             >
-              {/* Timeline Node Dot */}
-              <div style={{
-                position: 'absolute',
-                left: '-20px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: '14px',
-                height: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 5
-              }}>
-                <motion.div
-                  animate={{
-                    scale: activeIndex === index ? 1.5 : 1,
-                    backgroundColor: activeIndex === index ? (isPcbMode ? '#00ffaa' : 'var(--text-strong)') : (isPcbMode ? 'rgba(0, 255, 170, 0.3)' : 'rgba(12, 16, 21, 0.2)'),
-                    boxShadow: activeIndex === index ? (isPcbMode ? '0 0 10px #00ffaa' : '0 0 8px rgba(0, 0, 0, 0.3)') : 'none'
-                  }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    width: '7px',
-                    height: '7px',
-                    borderRadius: '50%',
-                  }}
-                />
-              </div>
-
-              <div className="project-grid">
-                <div className="project-name-col">
-                  <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
-                </div>
-                <motion.span 
-                  animate={{ opacity: activeIndex === index ? 1 : 0.4 }}
-                  style={{ 
-                    fontSize: '11px', 
-                    fontWeight: 600, 
-                    textTransform: 'uppercase', 
-                    letterSpacing: '0.06em', 
-                    color: isPcbMode ? '#00ffaa' : 'var(--muted)' 
-                  }}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </motion.span>
+              <div className="project-name-col">
+                <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
               </div>
             </motion.button>
           ))}
@@ -982,7 +880,6 @@ function App() {
             <strong 
               onClick={handleNameClick}
               style={{ fontWeight: 700, userSelect: 'none', cursor: 'pointer' }}
-              title="Click 3 times to toggle PCB mode"
             >
               {cvData.personal.name},
             </strong>
@@ -995,14 +892,6 @@ function App() {
             <button type="button" onClick={() => setIsAboutOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
               <FileText size={14} />
               About
-            </button>
-            <button type="button" onClick={() => setIsVideoOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
-              <Video size={14} />
-              Video Intro
-            </button>
-            <button type="button" onClick={() => setIsAccessibilityOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
-              <Accessibility size={14} />
-              Accessibility
             </button>
             <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
               <Mail size={14} />
@@ -1147,47 +1036,7 @@ function App() {
         />
       )}
 
-      {isVideoOpen && (
-        <VideoIntroDialog
-          onClose={() => setIsVideoOpen(false)}
-          isPcbMode={isPcbMode}
-        />
-      )}
-
-      {/* Always-On Screen Minimal Floating CTA */}
-      <motion.a
-        href={`mailto:${cvData.personal.email}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 150,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '10px 18px',
-          borderRadius: '100px',
-          background: isPcbMode ? 'rgba(7, 15, 12, 0.88)' : 'rgba(255, 255, 255, 0.88)',
-          backdropFilter: 'blur(16px)',
-          border: isPcbMode ? '1px solid rgba(0, 255, 170, 0.4)' : '1px solid rgba(12, 16, 21, 0.12)',
-          boxShadow: isPcbMode ? '0 10px 30px rgba(0, 255, 170, 0.2)' : '0 10px 30px rgba(0, 0, 0, 0.08)',
-          color: isPcbMode ? '#00ffaa' : 'var(--text-strong)',
-          fontSize: '13px',
-          fontWeight: 600,
-          cursor: 'pointer',
-          textDecoration: 'none',
-          transition: 'all 0.2s ease'
-        }}
-      >
-        <Mail size={14} />
-        <span>Let's Connect</span>
-      </motion.a>
-
-      {/* 2-Minute Easter Egg Toast Hint */}
+      {/* Subtle & Mysterious 2-Minute Easter Egg Toast Hint */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
@@ -1199,7 +1048,7 @@ function App() {
               bottom: '24px',
               left: '24px',
               zIndex: 145,
-              maxWidth: '340px',
+              maxWidth: '320px',
               padding: '14px 18px',
               borderRadius: '16px',
               background: 'rgba(255, 255, 255, 0.92)',
@@ -1218,7 +1067,7 @@ function App() {
             <div style={{ flex: 1 }}>
               <p style={{ margin: 0, fontWeight: 600 }}>Secret Portfolio Hint</p>
               <p style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '12px' }}>
-                Click Hesamoddin Jafari's name <strong>3 times</strong> to unlock the secret PCB mode! ⚡
+                A secret PCB engineering mode is hidden somewhere on this page... ⚡
               </p>
             </div>
             <button
