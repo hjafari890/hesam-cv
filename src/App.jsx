@@ -611,10 +611,8 @@ function App() {
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
 
   const corners = useMemo(() => [
-    { bottom: '28px', left: '28px' },
-    { top: '80px', left: '28px' },
-    { bottom: '28px', right: '80px' },
-    { top: '80px', right: '80px' }
+    { bottom: '28px', left: '28px' }, // Left Bottom
+    { top: '32px', left: '28px' }      // Left Top
   ], []);
 
   const [hintCorner, setHintCorner] = useState(corners[0]);
@@ -1047,70 +1045,48 @@ function App() {
         />
       )}
 
-      {/* Pixel Glitch Easter Egg Toast Hint (Random Corner Position) */}
+      {/* Clean Easter Egg Toast Hint (Left Top or Left Bottom) */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ 
-              opacity: [0, 1, 0.5, 1, 0.9, 1],
-              scale: [0.95, 1.02, 0.98, 1],
-              x: [0, -4, 4, -2, 2, 0],
-              skewX: [0, -8, 6, -3, 0]
-            }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{
-              duration: 0.45,
-              ease: "easeOut"
-            }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             style={{
               position: 'fixed',
               ...hintCorner,
               zIndex: 145,
-              maxWidth: '310px',
-              padding: '12px 16px',
-              borderRadius: '12px',
-              background: 'rgba(5, 12, 9, 0.95)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid #00ffaa',
-              boxShadow: '0 0 25px rgba(0, 255, 170, 0.3), 0 10px 30px rgba(0,0,0,0.6)',
+              maxWidth: '320px',
+              padding: '14px 18px',
+              borderRadius: '16px',
+              background: isPcbMode ? 'rgba(7, 15, 12, 0.92)' : 'rgba(255, 255, 255, 0.92)',
+              backdropFilter: 'blur(20px)',
+              border: isPcbMode ? '1px solid rgba(0, 255, 170, 0.4)' : '1px solid rgba(12, 16, 21, 0.12)',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.12)',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              color: '#00ffaa',
-              fontSize: '12.5px',
-              fontFamily: 'monospace, SFMono-Regular, Consolas, sans-serif'
+              color: 'var(--text-strong)',
+              fontSize: '13px'
             }}
           >
-            <motion.p
-              animate={{
-                textShadow: [
-                  '1px 0 0 #ff0055, -1px 0 0 #00ffff',
-                  '-2px 0 0 #ff0055, 2px 0 0 #00ffff',
-                  '0 0 8px #00ffaa',
-                  '1px 0 0 #ff0055, -1px 0 0 #00ffff',
-                  '0 0 4px #00ffaa'
-                ]
-              }}
-              transition={{ duration: 0.8, repeat: Infinity, repeatType: "mirror" }}
-              style={{
-                margin: 0,
-                color: '#ffffff',
-                lineHeight: 1.45,
-                fontWeight: 500,
-                letterSpacing: '-0.01em',
-                flex: 1
-              }}
-            >
-              Repeatedly poking a certain word triggers a secret portfolio showcase. ⚡
-            </motion.p>
+            <p style={{
+              margin: 0,
+              color: 'var(--text-strong)',
+              lineHeight: 1.45,
+              fontWeight: 500,
+              flex: 1
+            }}>
+              Repeatedly poking a certain word three times triggers a secret portfolio showcase.
+            </p>
 
             <button
               onClick={() => setShowEasterEggHint(false)}
               style={{
-                background: 'rgba(0, 255, 170, 0.15)',
-                border: '1px solid rgba(0, 255, 170, 0.4)',
-                borderRadius: '4px',
+                background: 'rgba(0, 0, 0, 0.05)',
+                border: 'none',
+                borderRadius: '50%',
                 width: '22px',
                 height: '22px',
                 display: 'flex',
@@ -1118,12 +1094,12 @@ function App() {
                 justifyContent: 'center',
                 cursor: 'pointer',
                 padding: 0,
-                color: '#00ffaa',
+                color: 'var(--muted)',
                 flexShrink: 0
               }}
               aria-label="Dismiss hint"
             >
-              <X size={12} />
+              <X size={13} />
             </button>
           </motion.div>
         )}
