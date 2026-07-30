@@ -617,7 +617,7 @@ function App() {
 
   const [hintCorner, setHintCorner] = useState(corners[0]);
 
-  // Idle/Dwell Timer for PCB Mode Easter Egg Hint (Set to 1s for immediate testing)
+  // Idle/Dwell Timer for PCB Mode Easter Egg Hint (1 minute for optimal visitor engagement)
   useEffect(() => {
     const hintTimer = setTimeout(() => {
       if (!isPcbMode) {
@@ -625,7 +625,7 @@ function App() {
         setHintCorner(randomPos);
         setShowEasterEggHint(true);
       }
-    }, 1000);
+    }, 60000); // 1 minute (60 seconds)
     return () => clearTimeout(hintTimer);
   }, [isPcbMode, corners]);
 
