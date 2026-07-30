@@ -610,13 +610,13 @@ function App() {
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
 
-  // 2-Minute Idle/Dwell Timer for Subtle PCB Mode Easter Egg Hint
+  // Idle/Dwell Timer for PCB Mode Easter Egg Hint (Set to 1s for immediate testing)
   useEffect(() => {
     const hintTimer = setTimeout(() => {
       if (!isPcbMode) {
         setShowEasterEggHint(true);
       }
-    }, 120000); // 2 minutes
+    }, 1000);
     return () => clearTimeout(hintTimer);
   }, [isPcbMode]);
 
@@ -1036,59 +1036,66 @@ function App() {
         />
       )}
 
-      {/* Secretive & Playful 2-Minute Easter Egg Toast Hint */}
+      {/* Digital Glitch Easter Egg Toast Hint */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.85, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, y: 40, scale: 0.85, rotate: 2 }}
-            transition={{ type: "spring", stiffness: 350, damping: 25 }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ 
+              opacity: [0.9, 1, 0.85, 1],
+              y: 0,
+              scale: 1,
+              x: [0, -2, 2, -1, 1, 0]
+            }}
+            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            transition={{
+              duration: 0.4,
+              x: { duration: 0.25, repeat: 3, repeatType: "reverse", ease: "easeInOut" }
+            }}
             style={{
               position: 'fixed',
               bottom: '28px',
               left: '28px',
               zIndex: 145,
-              maxWidth: '350px',
-              padding: '16px 20px',
-              borderRadius: '20px',
-              background: 'rgba(9, 18, 14, 0.94)',
-              backdropFilter: 'blur(24px)',
-              border: '1px dashed rgba(0, 255, 170, 0.5)',
-              boxShadow: '0 20px 50px rgba(0, 255, 170, 0.18), 0 10px 30px rgba(0, 0, 0, 0.4)',
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '14px',
-              color: '#e0ffe0',
-              fontSize: '13px',
-              lineHeight: 1.45
-            }}
-          >
-            <div style={{
-              background: 'rgba(0, 255, 170, 0.15)',
-              padding: '8px',
-              borderRadius: '12px',
+              maxWidth: '320px',
+              padding: '14px 18px',
+              borderRadius: '16px',
+              background: 'rgba(7, 15, 12, 0.94)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(0, 255, 170, 0.4)',
+              boxShadow: '0 0 25px rgba(0, 255, 170, 0.2), 0 10px 30px rgba(0,0,0,0.5)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#00ffaa',
-              flexShrink: 0,
-              marginTop: '2px'
-            }}>
-              <Cpu size={20} />
-            </div>
+              gap: '12px',
+              color: '#e0ffe0',
+              fontSize: '13px',
+              fontFamily: 'system-ui, -apple-system, sans-serif'
+            }}
+          >
+            <motion.div
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: '#00ffaa',
+                boxShadow: '0 0 10px #00ffaa',
+                flexShrink: 0
+              }}
+            />
             <div style={{ flex: 1 }}>
-              <p style={{ margin: 0, fontWeight: 700, fontSize: '0.85rem', color: '#00ffaa', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                🕵️ Classified System Rumor
-              </p>
-              <p style={{ margin: '6px 0 0', color: 'rgba(224, 255, 224, 0.85)', fontSize: '12.5px', lineHeight: 1.5 }}>
-                Legend has it that repeatedly poking a certain biomedical engineer's name <strong>3 times</strong> triggers a secret PCB hardware override... but shhh, you didn't hear it from me! 🤫
+              <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#00ffaa', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
+                SIGNAL DETECTED
+              </span>
+              <p style={{ margin: 0, color: '#f0fff5', fontSize: '12.5px', lineHeight: 1.45, fontWeight: 500 }}>
+                Repeatedly poking a certain word triggers a secret portfolio showcase. ⚡
               </p>
             </div>
             <button
               onClick={() => setShowEasterEggHint(false)}
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: 'rgba(255, 255, 255, 0.08)',
                 border: 'none',
                 borderRadius: '50%',
                 width: '22px',
@@ -1099,8 +1106,7 @@ function App() {
                 cursor: 'pointer',
                 padding: 0,
                 color: '#00ffaa',
-                flexShrink: 0,
-                marginTop: '2px'
+                flexShrink: 0
               }}
               aria-label="Dismiss hint"
             >
