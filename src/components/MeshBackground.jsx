@@ -1,7 +1,46 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const MeshBackground = ({ isPcbMode = false }) => {
+const MeshBackground = ({ isPcbMode = false, reducedMotion = false }) => {
+  const animateProp = reducedMotion ? {} : {
+    animate: {
+      x: [0, -60, 30, 0],
+      y: [0, 30, -90, 0],
+      scale: [1, 1.1, 0.95, 1],
+    },
+    transition: {
+      duration: 20,
+      ease: "easeInOut",
+      repeat: Infinity,
+    }
+  };
+
+  const animateProp2 = reducedMotion ? {} : {
+    animate: {
+      x: [0, 90, -30, 0],
+      y: [0, -60, 60, 0],
+      scale: [1, 1.15, 0.9, 1],
+    },
+    transition: {
+      duration: 24,
+      ease: "easeInOut",
+      repeat: Infinity,
+    }
+  };
+
+  const animateProp3 = reducedMotion ? {} : {
+    animate: {
+      x: [0, -40, 60, 0],
+      y: [0, 80, -30, 0],
+      scale: [1, 1.05, 1.2, 1],
+    },
+    transition: {
+      duration: 28,
+      ease: "easeInOut",
+      repeat: Infinity,
+    }
+  };
+
   return (
     <div style={{
       position: 'fixed',
@@ -12,20 +51,12 @@ const MeshBackground = ({ isPcbMode = false }) => {
       zIndex: -1,
       backgroundColor: isPcbMode ? '#070f0c' : '#f5f7fa',
       transition: 'background-color 0.8s ease',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      pointerEvents: 'none'
     }}>
       {/* Orb 1 - Top Right */}
       <motion.div
-        animate={{
-          x: [0, -100, 50, 0],
-          y: [0, 50, -150, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{
-          duration: 15,
-          ease: "easeInOut",
-          repeat: Infinity,
-        }}
+        {...animateProp}
         style={{
           position: 'absolute',
           top: '-10%',
@@ -34,23 +65,15 @@ const MeshBackground = ({ isPcbMode = false }) => {
           height: '50vw',
           borderRadius: '50%',
           backgroundColor: isPcbMode ? 'hsla(160, 100%, 45%, 0.35)' : 'hsla(212, 100%, 85%, 0.8)',
-          filter: 'blur(80px)',
+          filter: 'blur(50px)',
+          willChange: 'transform',
           transition: 'background-color 0.8s ease'
         }}
       />
 
       {/* Orb 2 - Bottom Left */}
       <motion.div
-        animate={{
-          x: [0, 150, -50, 0],
-          y: [0, -100, 100, 0],
-          scale: [1, 1.3, 0.8, 1],
-        }}
-        transition={{
-          duration: 18,
-          ease: "easeInOut",
-          repeat: Infinity,
-        }}
+        {...animateProp2}
         style={{
           position: 'absolute',
           bottom: '-20%',
@@ -59,23 +82,15 @@ const MeshBackground = ({ isPcbMode = false }) => {
           height: '60vw',
           borderRadius: '50%',
           backgroundColor: isPcbMode ? 'hsla(185, 100%, 50%, 0.3)' : 'hsla(270, 70%, 88%, 0.7)',
-          filter: 'blur(100px)',
+          filter: 'blur(60px)',
+          willChange: 'transform',
           transition: 'background-color 0.8s ease'
         }}
       />
 
       {/* Orb 3 - Center */}
       <motion.div
-        animate={{
-          x: [0, -50, 100, 0],
-          y: [0, 150, -50, 0],
-          scale: [1, 1.1, 1.4, 1],
-        }}
-        transition={{
-          duration: 22,
-          ease: "easeInOut",
-          repeat: Infinity,
-        }}
+        {...animateProp3}
         style={{
           position: 'absolute',
           top: '30%',
@@ -84,7 +99,8 @@ const MeshBackground = ({ isPcbMode = false }) => {
           height: '40vw',
           borderRadius: '50%',
           backgroundColor: isPcbMode ? 'hsla(140, 100%, 40%, 0.25)' : 'hsla(40, 90%, 92%, 0.6)',
-          filter: 'blur(90px)',
+          filter: 'blur(50px)',
+          willChange: 'transform',
           transition: 'background-color 0.8s ease'
         }}
       />
@@ -106,11 +122,11 @@ const MeshBackground = ({ isPcbMode = false }) => {
         />
       )}
 
-      {/* The Melting Glass Overlay */}
+      {/* Glass Overlay */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        backdropFilter: 'blur(100px) saturate(110%)',
+        backdropFilter: 'blur(30px) saturate(110%)',
         backgroundColor: isPcbMode ? 'rgba(5, 15, 10, 0.4)' : 'rgba(255, 255, 255, 0.2)',
         transition: 'background-color 0.8s ease'
       }} />

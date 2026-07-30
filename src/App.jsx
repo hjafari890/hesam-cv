@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { ExternalLink, FileText, Mail, X, Cpu } from 'lucide-react';
+import { ExternalLink, FileText, Mail, X, Cpu, Accessibility, Video, Sparkles, Play } from 'lucide-react';
 import { cvData } from './data/cv';
 import heroImage from './assets/hero.png';
 import MeshBackground from './components/MeshBackground';
@@ -481,6 +481,173 @@ function AboutDialog({ onClose }) {
   );
 }
 
+function AccessibilityDialog({ onClose, isFixedPreview, setIsFixedPreview, reducedMotion, setReducedMotion }) {
+  return (
+    <div className="dialog-backdrop" role="presentation" onMouseDown={onClose}>
+      <article
+        className="project-dialog"
+        style={{ 
+          maxWidth: '440px', 
+          padding: '32px', 
+          gridTemplateColumns: '1fr',
+          borderRadius: '20px',
+          background: 'rgba(255, 255, 255, 0.92)',
+          backdropFilter: 'blur(24px)',
+          boxShadow: '0 24px 80px rgba(0, 0, 0, 0.15)',
+          border: '1px solid rgba(255, 255, 255, 0.9)',
+          position: 'relative'
+        }}
+        aria-modal="true"
+        role="dialog"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <button className="icon-button close-button" type="button" onClick={onClose} aria-label="Close accessibility options">
+          <X size={18} />
+        </button>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Accessibility size={22} style={{ color: 'var(--text-strong)' }} />
+            <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-strong)' }}>
+              Accessibility Options
+            </h3>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Fixed Media Preview Option */}
+            <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', gap: '16px' }}>
+              <div>
+                <span style={{ display: 'block', fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-strong)' }}>
+                  Fixed Media Preview Position
+                </span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--muted)', display: 'block', marginTop: '2px' }}>
+                  Keep project preview in a fixed static position instead of tracking cursor motion.
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={isFixedPreview}
+                onChange={(e) => setIsFixedPreview(e.target.checked)}
+                style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#000', flexShrink: 0 }}
+              />
+            </label>
+
+            <div style={{ height: '1px', background: 'var(--line)' }} />
+
+            {/* Reduce Motion Option */}
+            <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', gap: '16px' }}>
+              <div>
+                <span style={{ display: 'block', fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-strong)' }}>
+                  Reduce Ambient Motion
+                </span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--muted)', display: 'block', marginTop: '2px' }}>
+                  Pause background floating mesh animations for reduced GPU load and visual clarity.
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={reducedMotion}
+                onChange={(e) => setReducedMotion(e.target.checked)}
+                style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#000', flexShrink: 0 }}
+              />
+            </label>
+          </div>
+
+          <div style={{ height: '1px', background: 'var(--line)' }} />
+
+          {/* Keyboard Guide */}
+          <div>
+            <h4 style={{ margin: '0 0 12px', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--muted)' }}>
+              Keyboard Shortcuts Guide
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.85rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ color: 'var(--text-strong)', fontWeight: 500 }}>Navigate Projects</span>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  <kbd style={{ background: 'rgba(0,0,0,0.06)', padding: '3px 8px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 600 }}>↑</kbd>
+                  <kbd style={{ background: 'rgba(0,0,0,0.06)', padding: '3px 8px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 600 }}>↓</kbd>
+                </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ color: 'var(--text-strong)', fontWeight: 500 }}>Cycle Project Screenshots</span>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  <kbd style={{ background: 'rgba(0,0,0,0.06)', padding: '3px 8px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 600 }}>←</kbd>
+                  <kbd style={{ background: 'rgba(0,0,0,0.06)', padding: '3px 8px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 600 }}>→</kbd>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function VideoIntroDialog({ onClose, isPcbMode }) {
+  return (
+    <div className="dialog-backdrop" role="presentation" onMouseDown={onClose}>
+      <article
+        className="project-dialog"
+        style={{ 
+          maxWidth: '580px', 
+          padding: '28px', 
+          gridTemplateColumns: '1fr',
+          borderRadius: '24px',
+          background: isPcbMode ? '#0a100a' : 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(24px)',
+          boxShadow: '0 30px 90px rgba(0, 0, 0, 0.25)',
+          border: isPcbMode ? '1px solid #00ffaa' : '1px solid rgba(255, 255, 255, 0.9)',
+          position: 'relative'
+        }}
+        aria-modal="true"
+        role="dialog"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <button className="icon-button close-button" type="button" onClick={onClose} aria-label="Close video intro">
+          <X size={18} />
+        </button>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Video size={20} style={{ color: isPcbMode ? '#00ffaa' : 'var(--text-strong)' }} />
+            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, color: isPcbMode ? '#fff' : 'var(--text-strong)' }}>
+              Engineering Overview — Hesamoddin Jafari
+            </h3>
+          </div>
+
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            paddingTop: '56.25%',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            background: '#000'
+          }}>
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0"
+              title="Hesamoddin Jafari Video Introduction"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 0
+              }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+
+          <p style={{ margin: 0, fontSize: '0.88rem', color: isPcbMode ? '#a0c0a0' : 'var(--muted)', lineHeight: 1.5 }}>
+            A short overview covering IoT system design, wearable physiological sensing, PCB hardware optimization, and TinyML / Edge AI projects at the University of Oulu.
+          </p>
+        </div>
+      </article>
+    </div>
+  );
+}
+
 
 function App() {
   const projects = useMemo(() => enrichProjects(cvData.projects), []);
@@ -488,9 +655,17 @@ function App() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const hoverTimeoutRef = useRef(null);
 
+  // Accessibility & Preview Customization States
+  const [isFixedPreview, setIsFixedPreview] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const projectRefs = useRef([]);
+
   // Easter Egg States
   const [isPcbMode, setIsPcbMode] = useState(false);
   const [nameClicks, setNameClicks] = useState(0);
+  const [showEasterEggHint, setShowEasterEggHint] = useState(false);
   
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showCurseButton, setShowCurseButton] = useState(false);
@@ -500,6 +675,46 @@ function App() {
   const [showWeatherHint, setShowWeatherHint] = useState(false);
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(null);
+
+  // 2-Minute Idle/Dwell Timer for PCB Mode Easter Egg Hint
+  useEffect(() => {
+    const hintTimer = setTimeout(() => {
+      if (!isPcbMode) {
+        setShowEasterEggHint(true);
+      }
+    }, 120000); // 2 minutes
+    return () => clearTimeout(hintTimer);
+  }, [isPcbMode]);
+
+  // Keyboard Up/Down Navigation for Projects
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName) || isAboutOpen || mobileActiveIndex !== null || isAccessibilityOpen || isVideoOpen) {
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActiveIndex((prev) => {
+          const next = prev === null ? 0 : Math.min(prev + 1, projects.length - 1);
+          if (projectRefs.current[next]) {
+            projectRefs.current[next].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+          return next;
+        });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActiveIndex((prev) => {
+          const next = prev === null ? 0 : Math.max(prev - 1, 0);
+          if (projectRefs.current[next]) {
+            projectRefs.current[next].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+          return next;
+        });
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [projects.length, isAboutOpen, mobileActiveIndex, isAccessibilityOpen, isVideoOpen]);
 
   useEffect(() => {
     if (mobileActiveIndex !== null) {
@@ -515,14 +730,14 @@ function App() {
     if (isPcbMode && loadingProgress < 99) {
       interval = setInterval(() => {
         setLoadingProgress((prev) => {
-          const next = prev + Math.floor(Math.random() * 4) + 1; // Slower speed
+          const next = prev + Math.floor(Math.random() * 4) + 1;
           return next > 99 ? 99 : next;
         });
       }, 150);
     } else if (isPcbMode && loadingProgress >= 99 && !showCurseButton) {
       const timeout = setTimeout(() => {
         setShowCurseButton(true);
-      }, 5000); // Wait 2 seconds longer (5s total)
+      }, 5000);
       return () => clearTimeout(timeout);
     } else if (!isPcbMode) {
       setLoadingProgress(0);
@@ -537,6 +752,7 @@ function App() {
     if (next >= 3) {
       setIsPcbMode(!isPcbMode);
       setNameClicks(0);
+      setShowEasterEggHint(false);
     }
   };
 
@@ -545,7 +761,6 @@ function App() {
       setIsWeatherActive(true);
       setShowWeatherHint(true);
       
-      // Auto-hide the hint after 5 seconds
       setTimeout(() => {
         setShowWeatherHint(false);
       }, 5000);
@@ -574,11 +789,11 @@ function App() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth out the mouse movement with a fast, snappy spring
   const springX = useSpring(mouseX, { stiffness: 1500, damping: 40, mass: 0.05 });
   const springY = useSpring(mouseY, { stiffness: 1500, damping: 40, mass: 0.05 });
 
   useEffect(() => {
+    if (isFixedPreview) return;
     const handleMouseMove = (e) => {
       const offsetX = (e.clientX - window.innerWidth / 2) * 0.5;
       const offsetY = (e.clientY - window.innerHeight / 2) * 0.5;
@@ -588,79 +803,48 @@ function App() {
     
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  // Global momentum scroll engine
-  const scrollRef = useRef(null);
-  const targetScroll = useRef(0);
-  const isScrolling = useRef(false);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const updateScroll = () => {
-      if (!isScrolling.current) return;
-      
-      const currentScroll = el.scrollTop;
-      const diff = targetScroll.current - currentScroll;
-      
-      if (Math.abs(diff) < 0.5) {
-        el.scrollTop = targetScroll.current;
-        isScrolling.current = false;
-        return;
-      }
-      
-      el.scrollTop = currentScroll + diff * 0.12; // 12% Lerp for buttery smooth aesthetic inertia
-      requestAnimationFrame(updateScroll);
-    };
-
-    const handleGlobalWheel = (e) => {
-      if (!el.contains(e.target)) {
-        e.preventDefault();
-        
-        const maxScroll = el.scrollHeight - el.clientHeight;
-        
-        if (!isScrolling.current) {
-          targetScroll.current = el.scrollTop;
-          isScrolling.current = true;
-          requestAnimationFrame(updateScroll);
-        }
-        
-        targetScroll.current = Math.max(0, Math.min(targetScroll.current + e.deltaY, maxScroll));
-      }
-    };
-    
-    const handleNativeScroll = () => {
-      if (!isScrolling.current) {
-        targetScroll.current = el.scrollTop;
-      }
-    };
-
-    window.addEventListener('wheel', handleGlobalWheel, { passive: false });
-    el.addEventListener('scroll', handleNativeScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('wheel', handleGlobalWheel);
-      el.removeEventListener('scroll', handleNativeScroll);
-    };
-  }, []);
+  }, [mouseX, mouseY, isFixedPreview]);
 
   return (
     <main className="portfolio-shell">
-      <MeshBackground isPcbMode={isPcbMode} />
+      <MeshBackground isPcbMode={isPcbMode} reducedMotion={reducedMotion} />
+      
       <section
-        ref={scrollRef}
         className="project-column"
         aria-label="Selected projects"
       >
-        <div className="project-list">
+        <div className="project-list" style={{ position: 'relative' }}>
+          {/* Animated Continuous Vertical Timeline Line */}
+          <div style={{
+            position: 'absolute',
+            left: '-14px',
+            top: '12px',
+            bottom: '12px',
+            width: '2px',
+            background: isPcbMode ? 'rgba(0, 255, 170, 0.15)' : 'rgba(12, 16, 21, 0.08)',
+            borderRadius: '2px',
+            zIndex: 1
+          }}>
+            <motion.div
+              animate={{
+                height: activeIndex !== null ? `${((activeIndex + 1) / projects.length) * 100}%` : '0%'
+              }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              style={{
+                width: '100%',
+                background: isPcbMode ? '#00ffaa' : 'var(--text-strong)',
+                boxShadow: isPcbMode ? '0 0 8px #00ffaa' : '0 0 6px rgba(0,0,0,0.3)',
+                borderRadius: '2px'
+              }}
+            />
+          </div>
+
           {projects.map((project, index) => (
             <motion.button
+              ref={(el) => (projectRefs.current[index] = el)}
               key={index}
               className={`project-row ${activeIndex === index ? 'active-row' : ''}`}
               onClick={() => {
-                // On mobile devices, open the fullscreen modal
                 if (window.innerWidth <= 980) {
                   setMobileActiveIndex(index);
                 }
@@ -696,16 +880,55 @@ function App() {
                 marginLeft: '-16px',
                 border: 'none',
                 position: 'relative',
-                cursor: 'default',
+                cursor: 'pointer',
                 width: '100%',
                 maxWidth: '400px'
               }}
             >
+              {/* Timeline Node Dot */}
+              <div style={{
+                position: 'absolute',
+                left: '-20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '14px',
+                height: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 5
+              }}>
+                <motion.div
+                  animate={{
+                    scale: activeIndex === index ? 1.5 : 1,
+                    backgroundColor: activeIndex === index ? (isPcbMode ? '#00ffaa' : 'var(--text-strong)') : (isPcbMode ? 'rgba(0, 255, 170, 0.3)' : 'rgba(12, 16, 21, 0.2)'),
+                    boxShadow: activeIndex === index ? (isPcbMode ? '0 0 10px #00ffaa' : '0 0 8px rgba(0, 0, 0, 0.3)') : 'none'
+                  }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    width: '7px',
+                    height: '7px',
+                    borderRadius: '50%',
+                  }}
+                />
+              </div>
+
               <div className="project-grid">
                 <div className="project-name-col">
                   <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
                 </div>
-                <span className="project-year" style={{ color: isPcbMode ? '#00ffaa' : undefined }}>{project.year}</span>
+                <motion.span 
+                  animate={{ opacity: activeIndex === index ? 1 : 0.4 }}
+                  style={{ 
+                    fontSize: '11px', 
+                    fontWeight: 600, 
+                    textTransform: 'uppercase', 
+                    letterSpacing: '0.06em', 
+                    color: isPcbMode ? '#00ffaa' : 'var(--muted)' 
+                  }}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </motion.span>
               </div>
             </motion.button>
           ))}
@@ -716,8 +939,8 @@ function App() {
         <motion.div 
           className="floating-preview"
           style={{ 
-            x: springX, 
-            y: springY,
+            x: isFixedPreview ? 0 : springX, 
+            y: isFixedPreview ? 0 : springY,
             position: 'fixed',
             left: '52vw',
             top: '50%',
@@ -730,7 +953,7 @@ function App() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: activeProject ? 1 : 0, scale: activeProject ? 1 : 0.95 }}
           transition={{ duration: 0.1, ease: "easeOut" }}
-          onMouseLeave={() => setActiveIndex(null)} // Close when mouse leaves the floating card too
+          onMouseLeave={() => setActiveIndex(null)}
         >
           <AnimatePresence mode="wait">
             {activeProject && (
@@ -758,7 +981,8 @@ function App() {
           <h1 style={{ fontSize: '2.4rem', lineHeight: 1.25, letterSpacing: '-0.03em', color: isPcbMode ? '#ffffff' : 'var(--text-strong)', marginBottom: '24px' }}>
             <strong 
               onClick={handleNameClick}
-              style={{ fontWeight: 700, userSelect: 'none' }}
+              style={{ fontWeight: 700, userSelect: 'none', cursor: 'pointer' }}
+              title="Click 3 times to toggle PCB mode"
             >
               {cvData.personal.name},
             </strong>
@@ -771,6 +995,14 @@ function App() {
             <button type="button" onClick={() => setIsAboutOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
               <FileText size={14} />
               About
+            </button>
+            <button type="button" onClick={() => setIsVideoOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
+              <Video size={14} />
+              Video Intro
+            </button>
+            <button type="button" onClick={() => setIsAccessibilityOpen(true)} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
+              <Accessibility size={14} />
+              Accessibility
             </button>
             <a href={`mailto:${cvData.personal.email}`} style={{ color: isPcbMode ? '#00ffaa' : undefined }}>
               <Mail size={14} />
@@ -840,14 +1072,6 @@ function App() {
                           width: '100%',
                           transition: 'all 0.2s ease'
                         }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(0, 255, 170, 0.15)';
-                          e.currentTarget.style.borderColor = '#00ffaa';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'rgba(0, 255, 170, 0.05)';
-                          e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.4)';
-                        }}
                       >
                         Perfectionism is a curse
                       </motion.button>
@@ -910,7 +1134,103 @@ function App() {
         </div>
       </section>
 
+      {/* Modals & Overlays */}
       {isAboutOpen && <AboutDialog onClose={() => setIsAboutOpen(false)} />}
+      
+      {isAccessibilityOpen && (
+        <AccessibilityDialog
+          onClose={() => setIsAccessibilityOpen(false)}
+          isFixedPreview={isFixedPreview}
+          setIsFixedPreview={setIsFixedPreview}
+          reducedMotion={reducedMotion}
+          setReducedMotion={setReducedMotion}
+        />
+      )}
+
+      {isVideoOpen && (
+        <VideoIntroDialog
+          onClose={() => setIsVideoOpen(false)}
+          isPcbMode={isPcbMode}
+        />
+      )}
+
+      {/* Always-On Screen Minimal Floating CTA */}
+      <motion.a
+        href={`mailto:${cvData.personal.email}`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 150,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 18px',
+          borderRadius: '100px',
+          background: isPcbMode ? 'rgba(7, 15, 12, 0.88)' : 'rgba(255, 255, 255, 0.88)',
+          backdropFilter: 'blur(16px)',
+          border: isPcbMode ? '1px solid rgba(0, 255, 170, 0.4)' : '1px solid rgba(12, 16, 21, 0.12)',
+          boxShadow: isPcbMode ? '0 10px 30px rgba(0, 255, 170, 0.2)' : '0 10px 30px rgba(0, 0, 0, 0.08)',
+          color: isPcbMode ? '#00ffaa' : 'var(--text-strong)',
+          fontSize: '13px',
+          fontWeight: 600,
+          cursor: 'pointer',
+          textDecoration: 'none',
+          transition: 'all 0.2s ease'
+        }}
+      >
+        <Mail size={14} />
+        <span>Let's Connect</span>
+      </motion.a>
+
+      {/* 2-Minute Easter Egg Toast Hint */}
+      <AnimatePresence>
+        {showEasterEggHint && !isPcbMode && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            style={{
+              position: 'fixed',
+              bottom: '24px',
+              left: '24px',
+              zIndex: 145,
+              maxWidth: '340px',
+              padding: '14px 18px',
+              borderRadius: '16px',
+              background: 'rgba(255, 255, 255, 0.92)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(12, 16, 21, 0.12)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.12)',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '12px',
+              color: 'var(--text-strong)',
+              fontSize: '13px',
+              lineHeight: 1.4
+            }}
+          >
+            <Sparkles size={18} style={{ flexShrink: 0, color: '#f59e0b', marginTop: '2px' }} />
+            <div style={{ flex: 1 }}>
+              <p style={{ margin: 0, fontWeight: 600 }}>Secret Portfolio Hint</p>
+              <p style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '12px' }}>
+                Click Hesamoddin Jafari's name <strong>3 times</strong> to unlock the secret PCB mode! ⚡
+              </p>
+            </div>
+            <button
+              onClick={() => setShowEasterEggHint(false)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'var(--muted)' }}
+              aria-label="Dismiss hint"
+            >
+              <X size={14} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Project Modal */}
       <AnimatePresence>
@@ -946,8 +1266,7 @@ function App() {
         )}
       </AnimatePresence>
 
-
-      {/* Global Image Preloader for instant crossfades (Cover photos only) */}
+      {/* Global Image Preloader for instant crossfades */}
       <div style={{ display: 'none', visibility: 'hidden', opacity: 0, position: 'absolute', pointerEvents: 'none' }}>
         {cvData.projects.map(p => p.images && p.images.length > 0 && (
           <img key={p.images[0]} src={p.images[0]} alt="preload-cover" />
