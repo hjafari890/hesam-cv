@@ -840,7 +840,7 @@ function App() {
             x: isFixedPreview ? 0 : springX, 
             y: isFixedPreview ? 0 : springY,
             position: 'fixed',
-            left: '52vw',
+            left: isFixedPreview ? '38vw' : '52vw',
             top: '50%',
             marginTop: '-35vh',
             zIndex: 100,
@@ -1036,7 +1036,7 @@ function App() {
         />
       )}
 
-      {/* Subtle & Mysterious 2-Minute Easter Egg Toast Hint */}
+      {/* 2-Minute Easter Egg Toast Hint */}
       <AnimatePresence>
         {showEasterEggHint && !isPcbMode && (
           <motion.div
@@ -1048,7 +1048,7 @@ function App() {
               bottom: '24px',
               left: '24px',
               zIndex: 145,
-              maxWidth: '320px',
+              maxWidth: '340px',
               padding: '14px 18px',
               borderRadius: '16px',
               background: 'rgba(255, 255, 255, 0.92)',
@@ -1067,7 +1067,7 @@ function App() {
             <div style={{ flex: 1 }}>
               <p style={{ margin: 0, fontWeight: 600 }}>Secret Portfolio Hint</p>
               <p style={{ margin: '4px 0 0', color: 'var(--muted)', fontSize: '12px' }}>
-                A secret PCB engineering mode is hidden somewhere on this page... ⚡
+                Try clicking <strong>3 times</strong> on a specific section of the page to unlock secret PCB mode... ⚡
               </p>
             </div>
             <button
