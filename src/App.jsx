@@ -834,8 +834,11 @@ function App() {
                 maxWidth: '400px'
               }}
             >
-              <div className="project-name-col">
-                <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
+              <div className="project-grid">
+                <div className="project-name-col">
+                  <span className="project-name" style={{ color: isPcbMode ? '#e0ffe0' : undefined }}>{project.title}</span>
+                </div>
+                <span className="project-year" style={{ color: isPcbMode ? '#00ffaa' : undefined }}>{project.year}</span>
               </div>
             </motion.button>
           ))}
