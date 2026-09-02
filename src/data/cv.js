@@ -68,7 +68,7 @@ export const cvData = {
       title: "High-Power VESC Motor Controller",
       year: "2026",
       organization: "POWER ELECTRONICS & EMBEDDED SYSTEMS",
-      description: "Co-developed a reverse-engineered, high-power (75V/300A) 3-phase VESC motor controller for a Formula Student Hybrid race car. 18-MOSFET inverter stage with inline current sensing and customized ChibiOS firmware executing Field-Oriented Control (FOC) over CAN bus.",
+      description: "Contributed to the reverse-engineering, testing, and debugging of a high-power (75V/300A) 3-phase VESC-based motor controller for Formula Student hybrid race car. Also assisted with firmware development and peripheral configuration on the STM32 platform, supported validation of gate driver and current sensing circuits, and hardware debugging for system integration.",
       images: ["/images/vesc/1.webp", "/images/vesc/2.webp", "/images/vesc/3.webp", "/images/vesc/4.webp", "/images/vesc/5.webp", "/images/vesc/6.webp"],
       technologies: ["STM32", "RTOS", "CAN Bus", "Embedded C", "Powertrain Electronics", "Motor Control"]
     },
@@ -108,7 +108,7 @@ export const cvData = {
       title: "Hybrid Powertrain Simulator",
       year: "2026",
       organization: "POWERTRAIN & VEHICLE SIMULATION",
-      description: "Co-developed a web-based Hybrid Electric Vehicle (HEV) powertrain simulator integrated with Simulink for Formula Student Oulu race car. Modeled ICE and electric motor power split, battery State-of-Charge (SoC), and lap energy management to strategies and optimize endurance performance.",
+      description: "Supported the development of a web-based Hybrid Electric Vehicle (HEV) powertrain simulator for Formula Student Oulu. Performed mathematical model validation for ICE/electric motor power split and battery State-of-Charge (SoC) algorithms, and contributed to software integration with Simulink to optimize endurance race strategies.",
       images: ["/images/hev sim/1.webp", "/images/hev sim/2.webp", "/images/hev sim/3.webp", "/images/hev sim/4.webp"],
       technologies: ["MATLAB", "Python", "Simulation", "HEV Energy Management", "Vehicle Dynamics"]
     },
