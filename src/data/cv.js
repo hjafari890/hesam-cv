@@ -61,7 +61,7 @@ export const cvData = {
       year: "2026",
       organization: "HARDWARE & MIXED-SIGNAL PCB DESIGN",
       description: "Designed a 4-layer mixed-signal PCB testbed for the Texas Instrument CC2650. Integrated high-precision 24-bit AFE (ECG/respiration) and PPG sensor hub. Implementing isolated domains, bidirectional level translation, trace topology, and BOM optimization for fabrication.",
-      images: ["/images/bme shield/1.webp", "/images/bme shield/3.webp", "/images/bme shield/5.webp"],
+      images: ["/images/bme shield/1.webp?v=2", "/images/bme shield/3.webp", "/images/bme shield/5.webp"],
       technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "Analog Front-End"]
     },
     {
