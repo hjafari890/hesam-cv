@@ -999,7 +999,7 @@ function App() {
             {isWeatherActive ? (
               `📍 Oulu, FI • ${weatherData ? `${weatherData.temp}°C ${getWeatherEmoji(weatherData.code)}` : 'Loading...'} • ${new Date().toLocaleTimeString('en-US', { timeZone: 'Europe/Helsinki', hour: '2-digit', minute: '2-digit', hour12: false })}`
             ) : (
-              "Jul '26"
+              "Oct '26"
             )}
           </p>
 

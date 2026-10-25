@@ -65,6 +65,14 @@ export const cvData = {
       technologies: ["KiCad", "PCB", "Electronic design", "Assembly", "Comms protocols", "Analog Front-End"]
     },
     {
+      title: "TI-RTOS for SmartBAN Sensor Node",
+      year: "2026",
+      organization: "RTOS & SIMULATION",
+      description: "Developed a firmware for my SmartBAN sensor node on TI CC2652R1 using TI-RTOS7, executing heavy AFE signal for ECG processing, TinyML cardiac arrhythmia classification, and semantic communications all on the MCU. Validated via Zephyr OS simulation in Renode, with BLE telemetry streaming to an Android companion app for realtime monitoring.",
+      images: ["/images/smartban/1.webp", "/images/smartban/2.webp", "/images/smartban/3.webp"],
+      technologies: ["TI-RTOS7", "Zephyr OS", "Renode", "TinyML", "AFE & DSP", "Semantic Comms", "BLE", "Android (Compose)"]
+    },
+    {
       title: "High-Power VESC Motor Controller",
       year: "2026",
       organization: "POWER ELECTRONICS & EMBEDDED SYSTEMS",
@@ -167,9 +175,9 @@ export const cvData = {
   ],
   skills: {
     AI: ["Python", "PyTorch", "TinyML", "ML", "time-series analysis", "self-supervised learning", "signal processing", "MATLAB"],
-    Edge: ["Docker", "MQTT", "SBCs", "Linux/bash", "distributed systems", "cloud-edge continuum", "Raspberry Pi", "ESP32"],
-    Hardware: ["PCB", "industrial sensors", "oscilloscope", "spectrum analyzer", "COMSOL", "EasyEDA", "Biosignal acquisition"],
-    Electronics: ["Industrial Sensors", "MCUs", "Op-Amps", "PCB Assembly"],
+    Edge: ["TI-RTOS", "Zephyr OS", "Renode", "CC2652R1", "Embedded C", "BLE Telemetry", "Docker", "MQTT", "SBCs", "Linux/bash", "distributed systems", "cloud-edge continuum", "Raspberry Pi", "ESP32"],
+    Hardware: ["PCB", "AFE (ADS1292R/AD8232)", "industrial sensors", "oscilloscope", "spectrum analyzer", "COMSOL", "EasyEDA", "Biosignal acquisition"],
+    Electronics: ["AFE (ADS1292R/AD8232)", "Industrial Sensors", "MCUs", "Op-Amps", "PCB Assembly"],
     Equipment: ["Oscilloscope", "Function Generator", "Digital Multimeter", "Spectrum Analyzer", "LCR meter"],
     Software: ["Gen AI", "Vibe Coding", "Claude Code", "LaTeX", "Google Suite", "Adobe Premiere", "Photoshop", "Resolve"],
     Integrity: ["Technical documentation", "Risk Assessment", "Reporting", "Visual Communication"],

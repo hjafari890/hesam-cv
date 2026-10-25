@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 package-lock.json
+
+# Local agent artifacts
+.agents
+ORIGINAL_REQUEST.md
